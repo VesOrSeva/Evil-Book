@@ -53,7 +53,27 @@ namespace BookGraph.Runtime
             switch (currentNode)
             {
                 case RuntimeDefaultPageNode page:
-                    HandleDialogueNode(page);
+                    HandleDefaultPageNode(page);
+                    break;
+
+                case RuntimePageWithHeaderNode headerPage:
+                    HandlePageWithHeaderNode(headerPage);
+                    break;
+
+                case RuntimeSpecialPageNode specialPage:
+                    HandleSpecialPageNode(specialPage);
+                    break;
+
+                case RuntimeErasePageNode erasePage:
+                    HandleErasePageNode(erasePage);
+                    break;
+
+                case RuntimeFlipPagesNode flipPages:
+                    HandleFlipPagesNode(flipPages);
+                    break;
+
+                case RuntimeChoicePageNode choicePage:
+                    HandleChoicePageNode(choicePage);
                     break;
 
                 case RuntimeEndNode end:
@@ -69,11 +89,36 @@ namespace BookGraph.Runtime
 
         #region Node Handlers
 
-        private void HandleDialogueNode(RuntimeDefaultPageNode node)
+        private void HandleDefaultPageNode(RuntimeDefaultPageNode node)
         {
 
         }
-        
+
+        private void HandlePageWithHeaderNode(RuntimePageWithHeaderNode node)
+        {
+
+        }
+
+        private void HandleSpecialPageNode(RuntimeSpecialPageNode node)
+        {
+
+        }
+
+        private void HandleErasePageNode(RuntimeErasePageNode node)
+        {
+
+        }
+
+        private void HandleFlipPagesNode(RuntimeFlipPagesNode node)
+        {
+
+        }
+
+        private void HandleChoicePageNode(RuntimeChoicePageNode node)
+        {
+
+        }
+
         private void HandleEndNode(RuntimeEndNode node)
         {
             Debug.Log("Dialogue ended");
