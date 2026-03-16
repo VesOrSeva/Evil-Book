@@ -26,6 +26,7 @@ namespace BookGraph.Editor
             var startNode = editorGraph.GetNodes().OfType<StartNode>().FirstOrDefault();
             if (startNode != null)
             {
+                runtimeGraph.Pages = GetPortValue<int>(startNode.GetInputPortByName("Pages Count (Must be even)"));
                 var entryPort = startNode.GetOutputPorts().FirstOrDefault()?.firstConnectedPort;
                 if (entryPort != null) runtimeGraph.EntryNodeId = nodeIDMap[entryPort.GetNode()];
             }

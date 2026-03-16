@@ -6,7 +6,8 @@ namespace BookGraph.Runtime
 {
     public class BookManager : Singleton<BookManager>
     {
-        public RuntimeGraph currentGraph;
+        [SerializeField] RuntimeGraph currentGraph;
+        [SerializeField] 
         private Dictionary<string, RuntimeNode> nodeLookup = new();
         private RuntimeNode currentNode;
 

@@ -11,6 +11,7 @@ namespace BookGraph.Editor
         protected override void OnDefinePorts(IPortDefinitionContext context)
         {
             context.AddOutputPort("Out").WithConnectorUI(PortConnectorUI.Arrowhead).Build();
+            context.AddInputPort<int>("Pages Count (Must be even)").Build();
             context.AddInputPort<int>("Starting Page").Build();
         }
     }
