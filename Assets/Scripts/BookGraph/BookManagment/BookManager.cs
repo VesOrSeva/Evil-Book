@@ -7,7 +7,11 @@ namespace BookGraph.Runtime
     public class BookManager : Singleton<BookManager>
     {
         [SerializeField] RuntimeGraph currentGraph;
-        [SerializeField] 
+        [SerializeField] Book book;
+        [SerializeField] GameObject DefaultPagePrefab;
+        [SerializeField] GameObject PageWithHeaderPrefab;
+        [SerializeField] GameObject PageChoicePagePrefab;
+
         private Dictionary<string, RuntimeNode> nodeLookup = new();
         private RuntimeNode currentNode;
 
@@ -92,27 +96,47 @@ namespace BookGraph.Runtime
 
         private void HandleDefaultPageNode(RuntimeDefaultPageNode node)
         {
+            var entry = new PageEntry(DefaultPagePrefab, node);
 
+            if (node.PageAction == PageAction.Add) book.AddPage(entry);
+            else book.ReplacePage(node.TargetPage, entry);
+
+
+            if (!string.IsNullOrEmpty(node.NextNodeId)) GoToNode(node.NextNodeId);
+            else EndDialogue();
         }
 
         private void HandlePageWithHeaderNode(RuntimePageWithHeaderNode node)
         {
-
+            if (!string.IsNullOrEmpty(node.NextNodeId)) GoToNode(node.NextNodeId);
+            else EndDialogue();
         }
 
         private void HandleSpecialPageNode(RuntimeSpecialPageNode node)
         {
+            var entry = new PageEntry(node.PagePrefab, node);
 
+            if (node.PageAction == PageAction.Add) book.AddPage(entry);
+            else book.ReplacePage(node.TargetPage, entry);
+
+            if (!string.IsNullOrEmpty(node.NextNodeId)) GoToNode(node.NextNodeId);
+            else EndDialogue();
         }
 
         private void HandleErasePageNode(RuntimeErasePageNode node)
         {
+            book.RemovePage(node.TargetPage);
 
+            if (!string.IsNullOrEmpty(node.NextNodeId)) GoToNode(node.NextNodeId);
+            else EndDialogue();
         }
 
         private void HandleFlipPagesNode(RuntimeFlipPagesNode node)
         {
+            book.GoToPage(node.TargetPage);
 
+            if (!string.IsNullOrEmpty(node.NextNodeId)) GoToNode(node.NextNodeId);
+            else EndDialogue();
         }
 
         private void HandleChoicePageNode(RuntimeChoicePageNode node)

@@ -2,30 +2,47 @@
 //As the rbarraza.com website is not live anymore you can get an archived version from web archive 
 //or check an archived version that I uploaded on my website: https://dandarawy.com/html5-canvas-pageflip/
 
-using UnityEngine;
+using BookGraph.Runtime;
 using System.Collections;
-using UnityEngine.UI;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
+
 public enum FlipMode
 {
     RightToLeft,
     LeftToRight
 }
+
 [ExecuteInEditMode]
-public class Book : MonoBehaviour {
+public class Book : MonoBehaviour 
+{
+    [SerializeField] List<PageEntry> pages = new();
+
+    PageEntry GetPage(int index)
+    {
+        if (index < 0 || index >= pages.Count)
+            return null;
+
+        return pages[index];
+    }
+
+    int GetLeftPageIndex()
+    {
+        return currentPage % 2 == 0 ? currentPage : currentPage - 1;
+    }
+
+    #region Page Fliping <-------
+
     public Canvas canvas;
-    [SerializeField]
-    RectTransform BookPanel;
+    [SerializeField] RectTransform BookPanel;
     public Sprite background;
-    public Sprite[] bookPages;
-    public bool interactable=true;
-    public bool enableShadowEffect=true;
+    public bool interactable = true;
+    public bool enableShadowEffect = true;
     //represent the index of the sprite shown in the right page
     public int currentPage = 0;
-    public int TotalPageCount
-    {
-        get { return bookPages.Length; }
-    }
+    public int TotalPageCount => pages.Count;
     public Vector3 EndBottomLeft
     {
         get { return ebl; }
@@ -41,14 +58,15 @@ public class Book : MonoBehaviour {
             return BookPanel.rect.height ; 
         }
     }
+
     public Image ClippingPlane;
     public Image NextPageClip;
     public Image Shadow;
     public Image ShadowLTR;
-    public Image Left;
-    public Image LeftNext;
-    public Image Right;
-    public Image RightNext;
+    public RawImage Left;
+    public RawImage LeftNext;
+    public RawImage Right;
+    public RawImage RightNext;
     public UnityEvent OnFlip;
     float radius1, radius2;
     //Spine Bottom
@@ -74,7 +92,7 @@ public class Book : MonoBehaviour {
 
         Left.gameObject.SetActive(false);
         Right.gameObject.SetActive(false);
-        UpdateSprites();
+        UpdateRenderedPages();
         CalcCurlCriticalPoints();
 
         float pageWidth = BookPanel.rect.width / 2.0f;
@@ -276,7 +294,9 @@ public class Book : MonoBehaviour {
     }
     public void DragRightPageToPoint(Vector3 point)
     {
-        if (currentPage >= bookPages.Length) return;
+        if (GetLeftPageIndex() + 2 >= TotalPageCount) return;
+        PrepareRTLPages();
+
         pageDragging = true;
         mode = FlipMode.RightToLeft;
         f = point;
@@ -289,15 +309,11 @@ public class Book : MonoBehaviour {
         Left.rectTransform.pivot = new Vector2(0, 0);
         Left.transform.position = RightNext.transform.position;
         Left.transform.eulerAngles = new Vector3(0, 0, 0);
-        Left.sprite = (currentPage < bookPages.Length) ? bookPages[currentPage] : background;
         Left.transform.SetAsFirstSibling();
         
         Right.gameObject.SetActive(true);
         Right.transform.position = RightNext.transform.position;
         Right.transform.eulerAngles = new Vector3(0, 0, 0);
-        Right.sprite = (currentPage < bookPages.Length - 1) ? bookPages[currentPage + 1] : background;
-
-        RightNext.sprite = (currentPage < bookPages.Length - 2) ? bookPages[currentPage + 2] : background;
 
         LeftNext.transform.SetAsFirstSibling();
         if (enableShadowEffect) Shadow.gameObject.SetActive(true);
@@ -311,7 +327,9 @@ public class Book : MonoBehaviour {
     }
     public void DragLeftPageToPoint(Vector3 point)
     {
-        if (currentPage <= 0) return;
+        if (GetLeftPageIndex() <= 0) return;
+        PrepareLTRPages();
+
         pageDragging = true;
         mode = FlipMode.LeftToRight;
         f = point;
@@ -321,7 +339,6 @@ public class Book : MonoBehaviour {
 
         Right.gameObject.SetActive(true);
         Right.transform.position = LeftNext.transform.position;
-        Right.sprite = bookPages[currentPage - 1];
         Right.transform.eulerAngles = new Vector3(0, 0, 0);
         Right.transform.SetAsFirstSibling();
 
@@ -329,9 +346,6 @@ public class Book : MonoBehaviour {
         Left.rectTransform.pivot = new Vector2(1, 0);
         Left.transform.position = LeftNext.transform.position;
         Left.transform.eulerAngles = new Vector3(0, 0, 0);
-        Left.sprite = (currentPage >= 2) ? bookPages[currentPage - 2] : background;
-
-        LeftNext.sprite = (currentPage >= 3) ? bookPages[currentPage - 3] : background;
 
         RightNext.transform.SetAsFirstSibling();
         if (enableShadowEffect) ShadowLTR.gameObject.SetActive(true);
@@ -364,24 +378,69 @@ public class Book : MonoBehaviour {
         }
     }
     Coroutine currentCoroutine;
-    void UpdateSprites()
+    void UpdateRenderedPages()
     {
-        LeftNext.sprite= (currentPage > 0 && currentPage <= bookPages.Length) ? bookPages[currentPage-1] : background;
-        RightNext.sprite=(currentPage>=0 &&currentPage<bookPages.Length) ? bookPages[currentPage] : background;
+        var renderer = PagesRendering.Instance;
+
+        int left = GetLeftPageIndex();
+        int right = left + 1;
+
+        renderer.SpawnPage(GetPage(left), RenderingPageType.LeftFront);
+        renderer.SpawnPage(GetPage(right), RenderingPageType.RightFront);
+        renderer.SpawnPage(GetPage(left - 2), RenderingPageType.LeftBack);
+        renderer.SpawnPage(GetPage(right + 1), RenderingPageType.RightBack);
     }
+
+    void PrepareRTLPages()
+    {
+        Debug.Log("To Right");
+        var renderer = PagesRendering.Instance;
+
+        int left = GetLeftPageIndex();
+        int right = left + 1;
+
+        renderer.SpawnPage(GetPage(left), RenderingPageType.LeftFront);
+        renderer.SpawnPage(GetPage(left + 3), RenderingPageType.RightFront);
+        renderer.SpawnPage(GetPage(right), RenderingPageType.RightBack);
+        renderer.SpawnPage(GetPage(left + 2), RenderingPageType.LeftBack);
+    }
+
+    void PrepareLTRPages()
+    {
+        Debug.Log("To Left");
+        var renderer = PagesRendering.Instance;
+
+        int left = GetLeftPageIndex();
+        int right = left + 1;
+
+        renderer.SpawnPage(GetPage(left), RenderingPageType.LeftBack);
+        renderer.SpawnPage(GetPage(left - 2), RenderingPageType.LeftFront);
+        renderer.SpawnPage(GetPage(right), RenderingPageType.RightFront);
+        renderer.SpawnPage(GetPage(left - 1), RenderingPageType.RightBack);
+    }
+
     public void TweenForward()
     {
-        if(mode== FlipMode.RightToLeft)
-        currentCoroutine = StartCoroutine(TweenTo(ebl, 0.15f, () => { Flip(); }));
+        if (mode == FlipMode.RightToLeft)
+        {
+            if (currentCoroutine != null) StopCoroutine(currentCoroutine);
+            currentCoroutine = StartCoroutine(TweenTo(ebl, 0.15f, () => { Flip(); }));
+        }
         else
-        currentCoroutine = StartCoroutine(TweenTo(ebr, 0.15f, () => { Flip(); }));
+        {
+            if (currentCoroutine != null) StopCoroutine(currentCoroutine);
+            currentCoroutine = StartCoroutine(TweenTo(ebr, 0.15f, () => { Flip(); }));
+        }
     }
     void Flip()
     {
-        if (mode == FlipMode.RightToLeft)
-            currentPage += 2;
-        else
-            currentPage -= 2;
+        if (mode == FlipMode.RightToLeft) currentPage += 2;
+        else  currentPage -= 2;
+
+        currentPage = Mathf.Clamp(currentPage, 0, pages.Count - 1);
+        PagesRendering.Instance.ClearAll();
+        UpdateRenderedPages();
+
         LeftNext.transform.SetParent(BookPanel.transform, true);
         Left.transform.SetParent(BookPanel.transform, true);
         LeftNext.transform.SetParent(BookPanel.transform, true);
@@ -389,12 +448,12 @@ public class Book : MonoBehaviour {
         Right.gameObject.SetActive(false);
         Right.transform.SetParent(BookPanel.transform, true);
         RightNext.transform.SetParent(BookPanel.transform, true);
-        UpdateSprites();
+
         Shadow.gameObject.SetActive(false);
         ShadowLTR.gameObject.SetActive(false);
-        if (OnFlip != null)
-            OnFlip.Invoke();
+        if (OnFlip != null) OnFlip.Invoke();
     }
+
     public void TweenBack()
     {
         if (mode == FlipMode.RightToLeft)
@@ -402,13 +461,16 @@ public class Book : MonoBehaviour {
             currentCoroutine = StartCoroutine(TweenTo(ebr,0.15f,
                 () =>
                 {
-                    UpdateSprites();
+                    PagesRendering.Instance.ClearAll();
+                    UpdateRenderedPages();
+
                     RightNext.transform.SetParent(BookPanel.transform);
                     Right.transform.SetParent(BookPanel.transform);
 
                     Left.gameObject.SetActive(false);
                     Right.gameObject.SetActive(false);
                     pageDragging = false;
+                    currentCoroutine = null;
                 }
                 ));
         }
@@ -417,7 +479,8 @@ public class Book : MonoBehaviour {
             currentCoroutine = StartCoroutine(TweenTo(ebl, 0.15f,
                 () =>
                 {
-                    UpdateSprites();
+                    PagesRendering.Instance.ClearAll();
+                    UpdateRenderedPages();
 
                     LeftNext.transform.SetParent(BookPanel.transform);
                     Left.transform.SetParent(BookPanel.transform);
@@ -425,6 +488,7 @@ public class Book : MonoBehaviour {
                     Left.gameObject.SetActive(false);
                     Right.gameObject.SetActive(false);
                     pageDragging = false;
+                    currentCoroutine = null;
                 }
                 ));
         }
@@ -435,14 +499,108 @@ public class Book : MonoBehaviour {
         Vector3 displacement = (to - f) / steps;
         for (int i = 0; i < steps-1; i++)
         {
-            if(mode== FlipMode.RightToLeft)
+            if (mode == FlipMode.RightToLeft)
             UpdateBookRTLToPoint( f + displacement);
-            else
-                UpdateBookLTRToPoint(f + displacement);
+            else UpdateBookLTRToPoint(f + displacement);
 
             yield return new WaitForSeconds(0.025f);
         }
         if (onFinish != null)
             onFinish();
     }
+
+    #endregion
+
+    #region Pages Logic
+
+    public void AddPage(PageEntry entry)
+    {
+        pages.Add(entry);
+        UpdateRenderedPages();
+    }
+
+    public void InsertPage(int index, PageEntry entry)
+    {
+        index = Mathf.Clamp(index, 0, pages.Count);
+        pages.Insert(index, entry);
+
+        if (index <= currentPage)
+            currentPage += 2;
+
+        UpdateRenderedPages();
+    }
+
+    public void ReplacePage(int index, PageEntry entry)
+    {
+        if (index < 0 || index >= pages.Count)
+            return;
+
+        pages[index] = entry;
+        UpdateRenderedPages();
+    }
+
+    public void RemovePage(int index)
+    {
+        if (index < 0 || index >= pages.Count)
+            return;
+
+        pages.RemoveAt(index);
+
+        if (currentPage >= pages.Count)
+        currentPage = Mathf.Max(0, pages.Count - 2);
+
+        UpdateRenderedPages();
+    }
+
+    public void ClearPage(int index)
+    {
+        ReplacePage(index, null);
+    }
+
+    public void FlipForward()
+    {
+        if (currentPage + 2 >= pages.Count)
+            return;
+
+        currentPage += 2;
+        UpdateRenderedPages();
+    }
+
+    public void FlipBackward()
+    {
+        if (currentPage - 2 < 0)
+            return;
+
+        currentPage -= 2;
+        UpdateRenderedPages();
+    }
+
+    public void GoToPage(int index)
+    {
+        index = Mathf.Clamp(index, 0, pages.Count - 1);
+
+        // snap to left page
+        currentPage = index % 2 == 0 ? index : index - 1;
+
+        UpdateRenderedPages();
+    }
+
+    #endregion
+
+}
+
+[System.Serializable]
+public class PageEntry
+{
+    [SerializeField] private GameObject prefab;
+    [SerializeField] private RuntimeNode node;
+
+    public PageEntry(GameObject prefab, RuntimeNode node)
+    {
+        this.prefab = prefab;
+        this.node = node;
+    }
+
+    public GameObject Prefab => prefab;
+    public RuntimeNode Node => node;
 }

@@ -12,7 +12,7 @@ namespace BookGraph.Runtime
             {
                 var defaultPage = (RuntimeDefaultPageNode)node;
 
-
+                text.text = defaultPage.PageText;
             }
         }
     }
