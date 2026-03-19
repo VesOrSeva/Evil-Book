@@ -434,6 +434,7 @@ Transform:
   - {fileID: 1457866870}
   - {fileID: 255798788}
   - {fileID: 2099245980}
+  - {fileID: 1597101852}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &161744547
@@ -2757,6 +2758,53 @@ Transform:
   - {fileID: 633338225}
   m_Father: {fileID: 1423918913}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1597101851
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1597101852}
+  - component: {fileID: 1597101853}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1597101852
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1597101851}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 122471077}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1597101853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1597101851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17d91632dba388b4a8793621459001f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  loopSources: []
+  soundFXPrefab: {fileID: 7359596219923350410, guid: c65d7f18ace308045b95d0d4ea646d96, type: 3}
+  maxSoundsPlaying: 25
 --- !u!1 &1658386090
 GameObject:
   m_ObjectHideFlags: 0
@@ -3205,9 +3253,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BookGraph.Runtime.BookManager
   currentGraph: {fileID: 3965311268370046156, guid: d66dfba0b075d1e4988c0836881a4e46, type: 3}
   book: {fileID: 1370200378}
-  DefaultPagePrefab: {fileID: 355600863897402107, guid: f826b0295d594b8498e36f91a941429c, type: 3}
-  PageWithHeaderPrefab: {fileID: 355600863897402107, guid: f826b0295d594b8498e36f91a941429c, type: 3}
-  PageChoicePagePrefab: {fileID: 355600863897402107, guid: f826b0295d594b8498e36f91a941429c, type: 3}
+  blankPagePrefab: {fileID: 0}
+  defaultPagePrefab: {fileID: 355600863897402107, guid: f826b0295d594b8498e36f91a941429c, type: 3}
+  pageWithHeaderPrefab: {fileID: 0}
+  pageChoicePagePrefab: {fileID: 0}
 --- !u!1 &2140861770
 GameObject:
   m_ObjectHideFlags: 0

@@ -29,7 +29,6 @@ namespace BookGraph.Editor
 
         protected override void OnDefineOptions(IOptionDefinitionContext context)
         {
-            context.AddOption<PageAction>("Action").WithDefaultValue(PageAction.Add).Delayed();
             context.AddOption<PageEffect>("Effect").WithDefaultValue(PageEffect.Write).Delayed();
             context.AddOption<int>("Target Page").Delayed();
         }
@@ -49,7 +48,6 @@ namespace BookGraph.Editor
 
         protected override void OnDefineOptions(IOptionDefinitionContext context)
         {
-            context.AddOption<PageAction>("Action").WithDefaultValue(PageAction.Add).Delayed();
             context.AddOption<PageEffect>("Effect").WithDefaultValue(PageEffect.Write).Delayed();
             context.AddOption<int>("Target Page").Delayed();
         }
@@ -68,7 +66,6 @@ namespace BookGraph.Editor
 
         protected override void OnDefineOptions(IOptionDefinitionContext context)
         {
-            context.AddOption<PageAction>("Action").WithDefaultValue(PageAction.Add).Delayed();
             context.AddOption<PageEffect>("Effect").WithDefaultValue(PageEffect.Write).Delayed();
             context.AddOption<int>("Target Page").Delayed();
         }
@@ -132,7 +129,6 @@ namespace BookGraph.Editor
         protected override void OnDefineOptions(IOptionDefinitionContext context)
         {
             context.AddOption<int>(optionID).WithDefaultValue(2).Delayed();
-            context.AddOption<PageAction>("Action").WithDefaultValue(PageAction.Add).Delayed();
             context.AddOption<PageEffect>("Effect").WithDefaultValue(PageEffect.Write).Delayed();
             context.AddOption<ChoicesPosition>("Choices Position").WithDefaultValue(ChoicesPosition.Bottom).Delayed();
             context.AddOption<int>("Target Page").Delayed();

@@ -8,9 +8,10 @@ namespace BookGraph.Runtime
     {
         [SerializeField] RuntimeGraph currentGraph;
         [SerializeField] Book book;
-        [SerializeField] GameObject DefaultPagePrefab;
-        [SerializeField] GameObject PageWithHeaderPrefab;
-        [SerializeField] GameObject PageChoicePagePrefab;
+        [SerializeField] GameObject blankPagePrefab;
+        [SerializeField] GameObject defaultPagePrefab;
+        [SerializeField] GameObject pageWithHeaderPrefab;
+        [SerializeField] GameObject pageChoicePagePrefab;
 
         private Dictionary<string, RuntimeNode> nodeLookup = new();
         private RuntimeNode currentNode;
@@ -30,9 +31,12 @@ namespace BookGraph.Runtime
             nodeLookup.Clear();
             currentGraph = graph;
 
+            var blank = new PageEntry(blankPagePrefab);
+            book.InitializePages(blank, graph.Pages);
+
             foreach (var node in graph.AllNodes) nodeLookup[node.NodeId] = node;
             if (!string.IsNullOrEmpty(graph.EntryNodeId)) GoToNode(graph.EntryNodeId);
-            else EndDialogue();
+            else EndDialogue();;
         }
 
         public void GoToNode(string nodeId)
@@ -96,11 +100,8 @@ namespace BookGraph.Runtime
 
         private void HandleDefaultPageNode(RuntimeDefaultPageNode node)
         {
-            var entry = new PageEntry(DefaultPagePrefab, node);
-
-            if (node.PageAction == PageAction.Add) book.AddPage(entry);
-            else book.ReplacePage(node.TargetPage, entry);
-
+            var entry = new PageEntry(defaultPagePrefab, node);
+            book.ReplacePage(node.TargetPage - 1, entry);
 
             if (!string.IsNullOrEmpty(node.NextNodeId)) GoToNode(node.NextNodeId);
             else EndDialogue();
@@ -115,9 +116,7 @@ namespace BookGraph.Runtime
         private void HandleSpecialPageNode(RuntimeSpecialPageNode node)
         {
             var entry = new PageEntry(node.PagePrefab, node);
-
-            if (node.PageAction == PageAction.Add) book.AddPage(entry);
-            else book.ReplacePage(node.TargetPage, entry);
+            book.ReplacePage(node.TargetPage - 1, entry);
 
             if (!string.IsNullOrEmpty(node.NextNodeId)) GoToNode(node.NextNodeId);
             else EndDialogue();
@@ -125,7 +124,7 @@ namespace BookGraph.Runtime
 
         private void HandleErasePageNode(RuntimeErasePageNode node)
         {
-            book.RemovePage(node.TargetPage);
+            book.RemovePage(node.TargetPage - 1);
 
             if (!string.IsNullOrEmpty(node.NextNodeId)) GoToNode(node.NextNodeId);
             else EndDialogue();

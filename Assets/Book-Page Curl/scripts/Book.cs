@@ -512,10 +512,10 @@ public class Book : MonoBehaviour
 
     #region Pages Logic
 
-    public void AddPage(PageEntry entry)
+    public void InitializePages(PageEntry blankPage, int pageCount)
     {
-        pages.Add(entry);
-        UpdateRenderedPages();
+        for (int i = 0; i < pageCount; i++)
+        pages.Add(blankPage);
     }
 
     public void InsertPage(int index, PageEntry entry)
@@ -594,7 +594,7 @@ public class PageEntry
     [SerializeField] private GameObject prefab;
     [SerializeField] private RuntimeNode node;
 
-    public PageEntry(GameObject prefab, RuntimeNode node)
+    public PageEntry(GameObject prefab, RuntimeNode node = null)
     {
         this.prefab = prefab;
         this.node = node;

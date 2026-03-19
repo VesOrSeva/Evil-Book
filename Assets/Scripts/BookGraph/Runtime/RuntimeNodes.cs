@@ -25,7 +25,6 @@ namespace BookGraph.Runtime
     [Serializable]
     public class RuntimeDefaultPageNode : RuntimeNode
     {
-        public PageAction PageAction;
         public PageEffect PageEffect;
         public string PageText;
         public int TargetPage;
@@ -35,7 +34,6 @@ namespace BookGraph.Runtime
     [Serializable]
     public class RuntimePageWithHeaderNode : RuntimeNode
     {
-        public PageAction PageAction;
         public PageEffect PageEffect;
         public string PageText;
         public string HeaderText;
@@ -46,7 +44,6 @@ namespace BookGraph.Runtime
     [Serializable]
     public class RuntimeSpecialPageNode : RuntimeNode
     {
-        public PageAction PageAction;
         public PageEffect PageEffect;
         public GameObject PagePrefab;
         public int TargetPage;
@@ -70,7 +67,6 @@ namespace BookGraph.Runtime
     [Serializable]
     public class RuntimeChoicePageNode : RuntimeNode
     {
-        public PageAction PageAction;
         public PageEffect PageEffect;
         public int PageLayout;
         public string PageText;
@@ -84,12 +80,6 @@ namespace BookGraph.Runtime
     {
         public string ChoiceText;
         public string NextNodeId;
-    }
-
-    public enum PageAction
-    {
-        Add = 0,
-        Replace = 1
     }
 
     public enum PageEffect

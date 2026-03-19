@@ -90,7 +90,6 @@ namespace BookGraph.Editor
 
         private void ProcessDefaultPageNode(DefaultPage node, RuntimeDefaultPageNode runtimeNode, Dictionary<INode, string> nodeIDMap)
         {
-            runtimeNode.PageAction = GetOptionValue<PageAction>(node, "Action");
             runtimeNode.PageEffect = GetOptionValue<PageEffect>(node, "Effect");
             runtimeNode.TargetPage = GetOptionValue<int>(node, "Target Page");
 
@@ -102,7 +101,6 @@ namespace BookGraph.Editor
 
         private void ProcessPageWithHeaderNode(PageWithHeader node, RuntimePageWithHeaderNode runtimeNode, Dictionary<INode, string> nodeIDMap)
         {
-            runtimeNode.PageAction = GetOptionValue<PageAction>(node, "Action");
             runtimeNode.PageEffect = GetOptionValue<PageEffect>(node, "Effect");
             runtimeNode.TargetPage = GetOptionValue<int>(node, "Target Page");
 
@@ -115,7 +113,6 @@ namespace BookGraph.Editor
 
         private void ProcessSpecialPageNode(SpecialPage node, RuntimeSpecialPageNode runtimeNode, Dictionary<INode, string> nodeIDMap)
         {
-            runtimeNode.PageAction = GetOptionValue<PageAction>(node, "Action");
             runtimeNode.PageEffect = GetOptionValue<PageEffect>(node, "Effect");
             runtimeNode.TargetPage = GetOptionValue<int>(node, "Target Page");
 
@@ -143,7 +140,6 @@ namespace BookGraph.Editor
 
         private void ProcessChoicePageNode(ChoicePage node, RuntimeChoicePageNode runtimeNode, Dictionary<INode, string> nodeIDMap)
         {
-            runtimeNode.PageAction = GetOptionValue<PageAction>(node, "Action");
             runtimeNode.PageEffect = GetOptionValue<PageEffect>(node, "Effect");
             runtimeNode.TargetPage = GetOptionValue<int>(node, "Target Page");
             runtimeNode.PageLayout = node.GetNodeOptionByName("Choices Position")?.TryGetValue(out ChoicePage.ChoicesPosition pos) == true ? (int)pos : 0;

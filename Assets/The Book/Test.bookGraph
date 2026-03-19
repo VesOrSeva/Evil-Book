@@ -253,12 +253,10 @@ MonoBehaviour:
         m_State: 0
         m_InputConstantsById:
           m_KeyList:
-          - __option_Action
           - __option_Effect
           - __option_Target Page
           - Page Text
           m_ValueList:
-          - rid: 148572961683013781
           - rid: 148572961683013782
           - rid: 148572961683013783
           - rid: 148572961683013784
@@ -277,17 +275,6 @@ MonoBehaviour:
           m_HasUserColor: 1
         m_Node:
           rid: 148572961683013785
-    - rid: 148572961683013781
-      type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value:
-          m_EnumType:
-            m_Identification: BookGraph.Runtime.PageAction, Assembly-CSharp, Version=0.0.0.0,
-              Culture=neutral, PublicKeyToken=null
-          m_Value: 0
-        m_EnumType:
-          m_Identification: BookGraph.Runtime.PageAction, Assembly-CSharp, Version=0.0.0.0,
-            Culture=neutral, PublicKeyToken=null
     - rid: 148572961683013782
       type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
@@ -446,12 +433,10 @@ MonoBehaviour:
         m_State: 0
         m_InputConstantsById:
           m_KeyList:
-          - __option_Action
           - __option_Effect
           - __option_Target Page
           - Page Text
           m_ValueList:
-          - rid: 148573004354551893
           - rid: 148573004354551894
           - rid: 148573004354551895
           - rid: 148573004354551896
@@ -470,17 +455,6 @@ MonoBehaviour:
           m_HasUserColor: 1
         m_Node:
           rid: 148573004354551897
-    - rid: 148573004354551893
-      type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value:
-          m_EnumType:
-            m_Identification: BookGraph.Runtime.PageAction, Assembly-CSharp, Version=0.0.0.0,
-              Culture=neutral, PublicKeyToken=null
-          m_Value: 0
-        m_EnumType:
-          m_Identification: BookGraph.Runtime.PageAction, Assembly-CSharp, Version=0.0.0.0,
-            Culture=neutral, PublicKeyToken=null
     - rid: 148573004354551894
       type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
@@ -553,12 +527,10 @@ MonoBehaviour:
         m_State: 0
         m_InputConstantsById:
           m_KeyList:
-          - __option_Action
           - __option_Effect
           - __option_Target Page
           - Page Text
           m_ValueList:
-          - rid: 148573004354551905
           - rid: 148573004354551906
           - rid: 148573004354551907
           - rid: 148573004354551908
@@ -577,17 +549,6 @@ MonoBehaviour:
           m_HasUserColor: 1
         m_Node:
           rid: 148573004354551909
-    - rid: 148573004354551905
-      type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value:
-          m_EnumType:
-            m_Identification: BookGraph.Runtime.PageAction, Assembly-CSharp, Version=0.0.0.0,
-              Culture=neutral, PublicKeyToken=null
-          m_Value: 0
-        m_EnumType:
-          m_Identification: BookGraph.Runtime.PageAction, Assembly-CSharp, Version=0.0.0.0,
-            Culture=neutral, PublicKeyToken=null
     - rid: 148573004354551906
       type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
@@ -660,12 +621,10 @@ MonoBehaviour:
         m_State: 0
         m_InputConstantsById:
           m_KeyList:
-          - __option_Action
           - __option_Effect
           - __option_Target Page
           - Page Text
           m_ValueList:
-          - rid: 148573004354551917
           - rid: 148573004354551918
           - rid: 148573004354551919
           - rid: 148573004354551920
@@ -684,17 +643,6 @@ MonoBehaviour:
           m_HasUserColor: 1
         m_Node:
           rid: 148573004354551921
-    - rid: 148573004354551917
-      type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value:
-          m_EnumType:
-            m_Identification: BookGraph.Runtime.PageAction, Assembly-CSharp, Version=0.0.0.0,
-              Culture=neutral, PublicKeyToken=null
-          m_Value: 0
-        m_EnumType:
-          m_Identification: BookGraph.Runtime.PageAction, Assembly-CSharp, Version=0.0.0.0,
-            Culture=neutral, PublicKeyToken=null
     - rid: 148573004354551918
       type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
@@ -767,12 +715,10 @@ MonoBehaviour:
         m_State: 0
         m_InputConstantsById:
           m_KeyList:
-          - __option_Action
           - __option_Effect
           - __option_Target Page
           - Page Text
           m_ValueList:
-          - rid: 148573050663600276
           - rid: 148573050663600277
           - rid: 148573050663600278
           - rid: 148573050663600279
@@ -809,12 +755,10 @@ MonoBehaviour:
         m_State: 0
         m_InputConstantsById:
           m_KeyList:
-          - __option_Action
           - __option_Effect
           - __option_Target Page
           - Page Text
           m_ValueList:
-          - rid: 148573050663600281
           - rid: 148573050663600282
           - rid: 148573050663600283
           - rid: 148573050663600284
@@ -851,12 +795,10 @@ MonoBehaviour:
         m_State: 0
         m_InputConstantsById:
           m_KeyList:
-          - __option_Action
           - __option_Effect
           - __option_Target Page
           - Page Text
           m_ValueList:
-          - rid: 148573050663600286
           - rid: 148573050663600287
           - rid: 148573050663600288
           - rid: 148573050663600289
@@ -893,12 +835,10 @@ MonoBehaviour:
         m_State: 0
         m_InputConstantsById:
           m_KeyList:
-          - __option_Action
           - __option_Effect
           - __option_Target Page
           - Page Text
           m_ValueList:
-          - rid: 148573050663600291
           - rid: 148573050663600292
           - rid: 148573050663600293
           - rid: 148573050663600294
@@ -1013,17 +953,6 @@ MonoBehaviour:
           m_PortDirection: 1
           m_PortOrientation: 0
           m_Title: In
-    - rid: 148573050663600276
-      type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value:
-          m_EnumType:
-            m_Identification: BookGraph.Runtime.PageAction, Assembly-CSharp, Version=0.0.0.0,
-              Culture=neutral, PublicKeyToken=null
-          m_Value: 0
-        m_EnumType:
-          m_Identification: BookGraph.Runtime.PageAction, Assembly-CSharp, Version=0.0.0.0,
-            Culture=neutral, PublicKeyToken=null
     - rid: 148573050663600277
       type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
@@ -1046,17 +975,6 @@ MonoBehaviour:
     - rid: 148573050663600280
       type: {class: DefaultPage, ns: BookGraph.Editor, asm: Assembly-CSharp-Editor}
       data: 
-    - rid: 148573050663600281
-      type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value:
-          m_EnumType:
-            m_Identification: BookGraph.Runtime.PageAction, Assembly-CSharp, Version=0.0.0.0,
-              Culture=neutral, PublicKeyToken=null
-          m_Value: 0
-        m_EnumType:
-          m_Identification: BookGraph.Runtime.PageAction, Assembly-CSharp, Version=0.0.0.0,
-            Culture=neutral, PublicKeyToken=null
     - rid: 148573050663600282
       type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
@@ -1079,17 +997,6 @@ MonoBehaviour:
     - rid: 148573050663600285
       type: {class: DefaultPage, ns: BookGraph.Editor, asm: Assembly-CSharp-Editor}
       data: 
-    - rid: 148573050663600286
-      type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value:
-          m_EnumType:
-            m_Identification: BookGraph.Runtime.PageAction, Assembly-CSharp, Version=0.0.0.0,
-              Culture=neutral, PublicKeyToken=null
-          m_Value: 0
-        m_EnumType:
-          m_Identification: BookGraph.Runtime.PageAction, Assembly-CSharp, Version=0.0.0.0,
-            Culture=neutral, PublicKeyToken=null
     - rid: 148573050663600287
       type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
@@ -1112,17 +1019,6 @@ MonoBehaviour:
     - rid: 148573050663600290
       type: {class: DefaultPage, ns: BookGraph.Editor, asm: Assembly-CSharp-Editor}
       data: 
-    - rid: 148573050663600291
-      type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value:
-          m_EnumType:
-            m_Identification: BookGraph.Runtime.PageAction, Assembly-CSharp, Version=0.0.0.0,
-              Culture=neutral, PublicKeyToken=null
-          m_Value: 0
-        m_EnumType:
-          m_Identification: BookGraph.Runtime.PageAction, Assembly-CSharp, Version=0.0.0.0,
-            Culture=neutral, PublicKeyToken=null
     - rid: 148573050663600292
       type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:

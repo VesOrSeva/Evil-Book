@@ -26,14 +26,7 @@ public class PagesRendering : Singleton<PagesRendering>
         instance.transform.localRotation = Quaternion.identity;
 
         var page = instance.GetComponent<B_Page>();
-        if (page != null)
-        {
-            page.WriteThePage(entry.Node);
-        }
-        else
-        {
-            Debug.LogWarning($"Prefab {entry.Prefab.name} has no B_Page!");
-        }
+        if (page != null) page.WriteThePage(entry.Node);
 
         SetReference(type, instance);
     }
