@@ -15,7 +15,6 @@ public enum FlipMode
     LeftToRight
 }
 
-[ExecuteInEditMode]
 public class Book : MonoBehaviour 
 {
     [SerializeField] List<PageEntry> pages = new();
