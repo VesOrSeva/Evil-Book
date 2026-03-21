@@ -1,4 +1,4 @@
-using BookGraph.Runtime;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class PagesRendering : Singleton<PagesRendering>
@@ -8,34 +8,64 @@ public class PagesRendering : Singleton<PagesRendering>
     [SerializeField] Transform leftBackPageParent;
     [SerializeField] Transform rightFrontPageParent;
     [SerializeField] Transform rightBackPageParent;
+    [SerializeField] Transform hiddenPagesParent;
 
     GameObject currentLeftFront;
     GameObject currentLeftBack;
     GameObject currentRightFront;
     GameObject currentRightBack;
-
     public void SpawnPage(PageEntry entry, RenderingPageType type)
     {
         Transform parent = GetParent(type);
-        Clear(type);
+        if (parent == null) return;
 
-        if (entry == null || entry.Prefab == null) return;
+        GameObject current = GetReference(type);
 
-        GameObject instance = Instantiate(entry.Prefab, parent);
+        if (entry == null || entry.Prefab == null)
+        {
+            if (current != null) MoveToHidden(current);
+            SetReference(type, null);
+            return;
+        }
+
+        GameObject instance = entry.GetOrCreateInstance(parent);
+        if (current != null && current != instance)
+        {
+            if (!IsInstanceUsedElsewhere(current, type))
+            {
+                MoveToHidden(current);
+            }
+        }
+
+        instance.transform.SetParent(parent, false);
         instance.transform.localPosition = Vector3.zero;
         instance.transform.localRotation = Quaternion.identity;
 
-        var page = instance.GetComponent<B_Page>();
-        if (page != null) page.WriteThePage(entry.Node);
-
         SetReference(type, instance);
+    }
+
+    bool IsInstanceUsedElsewhere(GameObject obj, RenderingPageType currentType)
+    {
+        return
+            (currentType != RenderingPageType.LeftFront && currentLeftFront == obj) ||
+            (currentType != RenderingPageType.LeftBack && currentLeftBack == obj) ||
+            (currentType != RenderingPageType.RightFront && currentRightFront == obj) ||
+            (currentType != RenderingPageType.RightBack && currentRightBack == obj);
+    }
+
+    void MoveToHidden(GameObject obj)
+    {
+        if (obj == null) return;
+
+        obj.transform.SetParent(hiddenPagesParent, false);
+        obj.transform.localPosition = Vector3.zero;
+        obj.transform.localRotation = Quaternion.identity;
     }
 
     public void Clear(RenderingPageType type)
     {
         GameObject obj = GetReference(type);
-        if (obj != null)
-            Destroy(obj);
+        if (obj != null) MoveToHidden(obj);
 
         SetReference(type, null);
     }

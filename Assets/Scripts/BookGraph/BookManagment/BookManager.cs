@@ -30,9 +30,7 @@ namespace BookGraph.Runtime
             }       
             nodeLookup.Clear();
             currentGraph = graph;
-
-            var blank = new PageEntry(blankPagePrefab);
-            book.InitializePages(blank, graph.Pages);
+            book.InitializePages(blankPagePrefab, graph.Pages);
 
             foreach (var node in graph.AllNodes) nodeLookup[node.NodeId] = node;
             if (!string.IsNullOrEmpty(graph.EntryNodeId)) GoToNode(graph.EntryNodeId);

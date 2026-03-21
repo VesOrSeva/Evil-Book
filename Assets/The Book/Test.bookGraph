@@ -282,7 +282,7 @@ MonoBehaviour:
           m_EnumType:
             m_Identification: BookGraph.Runtime.PageEffect, Assembly-CSharp, Version=0.0.0.0,
               Culture=neutral, PublicKeyToken=null
-          m_Value: 1
+          m_Value: 0
         m_EnumType:
           m_Identification: BookGraph.Runtime.PageEffect, Assembly-CSharp, Version=0.0.0.0,
             Culture=neutral, PublicKeyToken=null
@@ -293,7 +293,8 @@ MonoBehaviour:
     - rid: 148572961683013784
       type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: Page1
+        m_Value: Page1 and teeeeeexxxxxxxxxtttttttttttttt veeeeeeeeeeeeeeeeeeeerrrrrrrrrrrrrrrrrrrrrrrrrrrrrrryyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
+          loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooonnnnnnnnnnggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
     - rid: 148572961683013785
       type: {class: DefaultPage, ns: BookGraph.Editor, asm: Assembly-CSharp-Editor}
       data: 
@@ -462,7 +463,7 @@ MonoBehaviour:
           m_EnumType:
             m_Identification: BookGraph.Runtime.PageEffect, Assembly-CSharp, Version=0.0.0.0,
               Culture=neutral, PublicKeyToken=null
-          m_Value: 1
+          m_Value: 0
         m_EnumType:
           m_Identification: BookGraph.Runtime.PageEffect, Assembly-CSharp, Version=0.0.0.0,
             Culture=neutral, PublicKeyToken=null
@@ -556,7 +557,7 @@ MonoBehaviour:
           m_EnumType:
             m_Identification: BookGraph.Runtime.PageEffect, Assembly-CSharp, Version=0.0.0.0,
               Culture=neutral, PublicKeyToken=null
-          m_Value: 1
+          m_Value: 0
         m_EnumType:
           m_Identification: BookGraph.Runtime.PageEffect, Assembly-CSharp, Version=0.0.0.0,
             Culture=neutral, PublicKeyToken=null

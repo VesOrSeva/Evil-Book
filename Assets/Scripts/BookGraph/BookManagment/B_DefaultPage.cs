@@ -12,7 +12,14 @@ namespace BookGraph.Runtime
             {
                 var defaultPage = (RuntimeDefaultPageNode)node;
 
-                text.text = defaultPage.PageText;
+                if (defaultPage.PageEffect == PageEffect.Write)
+                {
+                    TypeText(text, defaultPage.PageText);
+                }
+                else
+                {
+                    text.text = defaultPage.PageText;
+                }
             }
         }
     }

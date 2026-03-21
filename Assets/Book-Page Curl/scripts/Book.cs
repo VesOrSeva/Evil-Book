@@ -377,6 +377,7 @@ public class Book : MonoBehaviour
         }
     }
     Coroutine currentCoroutine;
+
     void UpdateRenderedPages()
     {
         var renderer = PagesRendering.Instance;
@@ -512,10 +513,10 @@ public class Book : MonoBehaviour
 
     #region Pages Logic
 
-    public void InitializePages(PageEntry blankPage, int pageCount)
+    public void InitializePages(GameObject blankPrefab, int pageCount)
     {
-        for (int i = 0; i < pageCount; i++)
-        pages.Add(blankPage);
+        pages.Clear();
+        for (int i = 0; i < pageCount; i++) pages.Add(new PageEntry(blankPrefab));
     }
 
     public void InsertPage(int index, PageEntry entry)
@@ -594,6 +595,9 @@ public class PageEntry
     [SerializeField] private GameObject prefab;
     [SerializeField] private RuntimeNode node;
 
+    private GameObject instance;
+    private bool initialized;
+
     public PageEntry(GameObject prefab, RuntimeNode node = null)
     {
         this.prefab = prefab;
@@ -602,4 +606,24 @@ public class PageEntry
 
     public GameObject Prefab => prefab;
     public RuntimeNode Node => node;
+
+    public GameObject GetOrCreateInstance(Transform parent)
+    {
+        if (instance == null)
+        {
+            instance = GameObject.Instantiate(prefab, parent);
+            instance.transform.localPosition = Vector3.zero;
+            instance.transform.localRotation = Quaternion.identity;
+
+            if (!initialized)
+            {
+                var page = instance.GetComponent<B_Page>();
+                if (page != null) page.WriteThePage(node);
+
+                initialized = true;
+            }
+        }
+
+        return instance;
+    }
 }
