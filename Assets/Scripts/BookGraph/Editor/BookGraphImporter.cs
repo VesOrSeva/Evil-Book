@@ -78,6 +78,10 @@ namespace BookGraph.Editor
                     ProcessChoicePageNode(choicePage, (RuntimeChoicePageNode)runtimeNode, idMap);
                     break;
 
+                case Condition condition:
+                    ProcessConditionNode(condition, (RuntimeConditionNode)runtimeNode, idMap);
+                    break;
+
                 case EndNode endNode:
                     ProcessEndNode(endNode, (RuntimeEndNode)runtimeNode, idMap);
                     break;
@@ -162,6 +166,14 @@ namespace BookGraph.Editor
             }
         }
 
+        private void ProcessConditionNode(Condition node, RuntimeConditionNode runtimeNode, Dictionary<INode, string> nodeIDMap)
+        {
+            runtimeNode.TargetPage = GetOptionValue<int>(node, "Target Page");
+
+            var nextNodePort = node.GetOutputPortByName("Out").firstConnectedPort;
+            if (nextNodePort != null) runtimeNode.NextNodeId = nodeIDMap[nextNodePort.GetNode()];
+        }
+
         private void ProcessEndNode(EndNode node, RuntimeEndNode runtimeNode, Dictionary<INode, string> nodeIDMap)
         {
             // no logic for now
@@ -181,6 +193,7 @@ namespace BookGraph.Editor
                 ErasePage => new RuntimeErasePageNode(),
                 FlipToPages => new RuntimeFlipPagesNode(),
                 ChoicePage => new RuntimeChoicePageNode(),
+                Condition => new RuntimeConditionNode(),
                 EndNode => new RuntimeEndNode(),
                 _ => throw new NotImplementedException($"Unsupported node type: {node.GetType()}")
             };
@@ -194,6 +207,7 @@ namespace BookGraph.Editor
             || node is ErasePage 
             || node is FlipToPages 
             || node is ChoicePage 
+            || node is Condition
             || node is EndNode;
 
 

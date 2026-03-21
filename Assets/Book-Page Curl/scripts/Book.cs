@@ -18,7 +18,7 @@ public enum FlipMode
 public class Book : MonoBehaviour 
 {
     [SerializeField] List<PageEntry> pages = new();
-
+    [SerializeField] List<PageCondition> conditions = new();
     PageEntry GetPage(int index)
     {
         if (index < 0 || index >= pages.Count)
@@ -585,6 +585,19 @@ public class Book : MonoBehaviour
         UpdateRenderedPages();
     }
 
+    public void AddCondition(PageCondition condition)
+    {
+        conditions.Add(condition);
+    }
+
+    public PageCondition GetConditionForPage(int pageIndex)
+    {
+        var condition = conditions.Find(c => c.TargetPage == pageIndex);
+        if (condition != null) conditions.Remove(condition);
+
+        return condition;
+    }
+
     #endregion
 
 }
@@ -592,8 +605,8 @@ public class Book : MonoBehaviour
 [System.Serializable]
 public class PageEntry
 {
-    [SerializeField] private GameObject prefab;
-    [SerializeField] private RuntimeNode node;
+    [SerializeField] GameObject prefab;
+    [SerializeField] RuntimeNode node;
 
     private GameObject instance;
     private bool initialized;
@@ -625,5 +638,18 @@ public class PageEntry
         }
 
         return instance;
+    }
+}
+
+[System.Serializable]
+public class PageCondition
+{
+    public int TargetPage;
+    public string NextNodeId;
+
+    public PageCondition(int targetPage, string nextNodeId)
+    {
+        this.TargetPage = targetPage;
+        this.NextNodeId = nextNodeId;
     }
 }

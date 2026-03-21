@@ -136,6 +136,21 @@ namespace BookGraph.Editor
     }
 
     [Serializable]
+    public class Condition : Node
+    {
+        protected override void OnDefinePorts(IPortDefinitionContext context)
+        {
+            context.AddInputPort("In").WithConnectorUI(PortConnectorUI.Arrowhead).Build();
+            context.AddOutputPort("Out").WithConnectorUI(PortConnectorUI.Arrowhead).Build();
+        }
+
+        protected override void OnDefineOptions(IOptionDefinitionContext context)
+        {
+            context.AddOption<int>("Target Page").Delayed();
+        }
+    }
+
+    [Serializable]
     public class EndNode : Node
     {
         protected override void OnDefinePorts(IPortDefinitionContext context)

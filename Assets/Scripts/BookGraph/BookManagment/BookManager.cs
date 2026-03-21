@@ -19,8 +19,10 @@ namespace BookGraph.Runtime
         protected override void Awake()
         {
             base.Awake();
+            book.OnFlip.AddListener(OnBookFlipped);
             StartBook(currentGraph);
         }
+
         public void StartBook(RuntimeGraph graph)
         {
             if (graph == null)
@@ -83,6 +85,10 @@ namespace BookGraph.Runtime
                     HandleChoicePageNode(choicePage);
                     break;
 
+                case RuntimeConditionNode condition:
+                    HandleConditionNode(condition);
+                    break;
+
                 case RuntimeEndNode end:
                     HandleEndNode(end);
                     break;
@@ -141,6 +147,14 @@ namespace BookGraph.Runtime
 
         }
 
+        private void HandleConditionNode(RuntimeConditionNode node)
+        {
+            if (string.IsNullOrEmpty(node.NextNodeId)) EndDialogue();
+
+            var condition = new PageCondition(node.TargetPage - 1, node.NextNodeId);
+            book.AddCondition(condition);
+        }
+
         private void HandleEndNode(RuntimeEndNode node)
         {
             Debug.Log("Dialogue ended");
@@ -148,5 +162,29 @@ namespace BookGraph.Runtime
         }
 
         #endregion
+
+        private void OnBookFlipped()
+        {
+            CheckPageConditions();
+        }
+
+        private void CheckPageConditions()
+        {
+            int leftPage = book.currentPage;
+            int rightPage = leftPage + 1;
+
+            TryTriggerCondition(leftPage);
+            TryTriggerCondition(rightPage);
+        }
+
+        private void TryTriggerCondition(int pageIndex)
+        {
+            var condition = book.GetConditionForPage(pageIndex);
+            if (condition == null) return;
+
+            Debug.Log($"Condition triggered on page {pageIndex}, going to {condition.NextNodeId}");
+
+            GoToNode(condition.NextNodeId);
+        }
     }
 }

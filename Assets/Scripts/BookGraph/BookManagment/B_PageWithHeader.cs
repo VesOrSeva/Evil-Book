@@ -1,19 +1,29 @@
+using TMPro;
 using UnityEngine;
 
 namespace BookGraph.Runtime
 {
     public class B_PageWithHeader : B_Page
     {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
+        [SerializeField] TextMeshProUGUI headerText;
+        [SerializeField] TextMeshProUGUI text;
+        public override void WriteThePage(RuntimeNode node)
         {
+            if (node is RuntimePageWithHeaderNode)
+            {
+                var headerPage = (RuntimePageWithHeaderNode)node;
 
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+                if (headerPage.PageEffect == PageEffect.Write)
+                {
+                    TypeText(headerText, headerPage.HeaderText);
+                    TypeText(text, headerPage.PageText);
+                }
+                else
+                {
+                    headerText.text = headerPage.HeaderText;
+                    text.text = headerPage.PageText;
+                }
+            }
         }
     }
 }

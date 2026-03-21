@@ -76,6 +76,13 @@ namespace BookGraph.Runtime
     }
 
     [Serializable]
+    public class RuntimeConditionNode : RuntimeNode
+    {
+        public int TargetPage;
+        public string NextNodeId;
+    }
+
+    [Serializable]
     public class ChoiceData
     {
         public string ChoiceText;
