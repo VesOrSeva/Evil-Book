@@ -380,6 +380,7 @@ public class Book : MonoBehaviour
 
     void UpdateRenderedPages()
     {
+        B_OnPageContentManager.Instance.ClearPages();
         var renderer = PagesRendering.Instance;
 
         int left = GetLeftPageIndex();
@@ -394,29 +395,31 @@ public class Book : MonoBehaviour
     void PrepareRTLPages()
     {
         Debug.Log("To Right");
+        B_OnPageContentManager.Instance.ClearPages();
         var renderer = PagesRendering.Instance;
 
         int left = GetLeftPageIndex();
         int right = left + 1;
 
-        renderer.SpawnPage(GetPage(left), RenderingPageType.LeftFront);
-        renderer.SpawnPage(GetPage(left + 3), RenderingPageType.RightFront);
-        renderer.SpawnPage(GetPage(right), RenderingPageType.RightBack);
-        renderer.SpawnPage(GetPage(left + 2), RenderingPageType.LeftBack);
+        renderer.SpawnPage(GetPage(left), RenderingPageType.LeftFront, false);
+        renderer.SpawnPage(GetPage(left + 3), RenderingPageType.RightFront, false);
+        renderer.SpawnPage(GetPage(right), RenderingPageType.RightBack, false);
+        renderer.SpawnPage(GetPage(left + 2), RenderingPageType.LeftBack, false);
     }
 
     void PrepareLTRPages()
     {
         Debug.Log("To Left");
+        B_OnPageContentManager.Instance.ClearPages();
         var renderer = PagesRendering.Instance;
 
         int left = GetLeftPageIndex();
         int right = left + 1;
 
-        renderer.SpawnPage(GetPage(left), RenderingPageType.LeftBack);
-        renderer.SpawnPage(GetPage(left - 2), RenderingPageType.LeftFront);
-        renderer.SpawnPage(GetPage(right), RenderingPageType.RightFront);
-        renderer.SpawnPage(GetPage(left - 1), RenderingPageType.RightBack);
+        renderer.SpawnPage(GetPage(left), RenderingPageType.LeftBack, false);
+        renderer.SpawnPage(GetPage(left - 2), RenderingPageType.LeftFront, false);
+        renderer.SpawnPage(GetPage(right), RenderingPageType.RightFront, false);
+        renderer.SpawnPage(GetPage(left - 1), RenderingPageType.RightBack, false);
     }
 
     public void TweenForward()

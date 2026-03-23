@@ -113,6 +113,9 @@ namespace BookGraph.Runtime
 
         private void HandlePageWithHeaderNode(RuntimePageWithHeaderNode node)
         {
+            var entry = new PageEntry(pageWithHeaderPrefab, node);
+            book.ReplacePage(node.TargetPage - 1, entry);
+
             if (!string.IsNullOrEmpty(node.NextNodeId)) GoToNode(node.NextNodeId);
             else EndDialogue();
         }
@@ -144,7 +147,8 @@ namespace BookGraph.Runtime
 
         private void HandleChoicePageNode(RuntimeChoicePageNode node)
         {
-
+            var entry = new PageEntry(pageChoicePagePrefab, node);
+            book.ReplacePage(node.TargetPage - 1, entry);
         }
 
         private void HandleConditionNode(RuntimeConditionNode node)

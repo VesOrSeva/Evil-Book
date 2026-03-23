@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using BookGraph.Runtime;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PagesRendering : Singleton<PagesRendering>
@@ -14,7 +15,7 @@ public class PagesRendering : Singleton<PagesRendering>
     GameObject currentLeftBack;
     GameObject currentRightFront;
     GameObject currentRightBack;
-    public void SpawnPage(PageEntry entry, RenderingPageType type)
+    public void SpawnPage(PageEntry entry, RenderingPageType type, bool flipped = true)
     {
         Transform parent = GetParent(type);
         if (parent == null) return;
@@ -37,6 +38,7 @@ public class PagesRendering : Singleton<PagesRendering>
             }
         }
 
+        if (flipped) instance.GetComponent<B_Page>()?.OnPageOpened(entry.Node, type);
         instance.transform.SetParent(parent, false);
         instance.transform.localPosition = Vector3.zero;
         instance.transform.localRotation = Quaternion.identity;

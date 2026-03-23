@@ -10,6 +10,8 @@ namespace BookGraph.Runtime
     {
         public virtual void WriteThePage(RuntimeNode node) { }
 
+        public virtual void OnPageOpened(RuntimeNode node, RenderingPageType type) { }
+
 
         private readonly Dictionary<TextMeshProUGUI, Coroutine> typingCoroutines = new();
 
