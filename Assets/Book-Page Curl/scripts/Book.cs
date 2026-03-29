@@ -38,6 +38,7 @@ public class Book : MonoBehaviour
     [SerializeField] RectTransform BookPanel;
     public Sprite background;
     public bool interactable = true;
+    public bool IsAutoFlipping = false;
     public bool enableShadowEffect = true;
     //represent the index of the sprite shown in the right page
     public int currentPage = 0;
@@ -162,6 +163,8 @@ public class Book : MonoBehaviour
     }
     public void UpdateBook()
     {
+        if (IsAutoFlipping) return;
+
         f = Vector3.Lerp(f, transformPoint(Input.mousePosition), Time.deltaTime * 10);
         if (mode == FlipMode.RightToLeft)
             UpdateBookRTLToPoint(f);
