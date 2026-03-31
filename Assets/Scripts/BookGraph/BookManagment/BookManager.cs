@@ -172,6 +172,11 @@ namespace BookGraph.Runtime
             CheckPageConditions();
         }
 
+        private int GetPageNumber(int targetPage)
+        {
+            return targetPage + 1;
+        }
+
         private void CheckPageConditions()
         {
             int leftPage = book.currentPage;

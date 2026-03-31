@@ -18,7 +18,10 @@ public enum FlipMode
 public class Book : MonoBehaviour 
 {
     [SerializeField] List<PageEntry> pages = new();
+    [SerializeField] List<PageEntry> frontPages = new(2);
+    [SerializeField] List<PageEntry> backPages = new(2);
     [SerializeField] List<PageCondition> conditions = new();
+
     PageEntry GetPage(int index)
     {
         if (index < 0 || index >= pages.Count)

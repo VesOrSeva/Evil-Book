@@ -12,6 +12,7 @@ namespace BookGraph.Runtime
         [SerializeField] GameObject optionsContainer;
         [SerializeField] GameObject optionButtonPrefab;
         [SerializeField] GameObject pageText;
+        [SerializeField] TextMeshProUGUI pageNumber;
 
         private readonly Dictionary<TextMeshProUGUI, Coroutine> typingCoroutines = new();
         private readonly List<GameObject> spawnedButtons = new();
@@ -26,6 +27,7 @@ namespace BookGraph.Runtime
             optionsPage = page;
 
             pageText.GetComponent<TextMeshProUGUI>().text = choicePage.PageText;
+            pageNumber.text = choicePage.TargetPage.ToString();
 
             foreach (var choice in choicePage.Choices)
             {

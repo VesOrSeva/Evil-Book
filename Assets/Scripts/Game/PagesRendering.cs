@@ -15,6 +15,7 @@ public class PagesRendering : Singleton<PagesRendering>
     GameObject currentLeftBack;
     GameObject currentRightFront;
     GameObject currentRightBack;
+
     public void SpawnPage(PageEntry entry, RenderingPageType type, bool flipped = true)
     {
         Transform parent = GetParent(type);
@@ -38,7 +39,10 @@ public class PagesRendering : Singleton<PagesRendering>
             }
         }
 
-        if (flipped) instance.GetComponent<B_Page>()?.OnPageOpened(entry.Node, type);
+        B_Page page = instance.GetComponent<B_Page>();
+        if (flipped) page?.OnPageOpened(entry.Node, type);
+        else page?.OnPageVisible(entry.Node);
+
         instance.transform.SetParent(parent, false);
         instance.transform.localPosition = Vector3.zero;
         instance.transform.localRotation = Quaternion.identity;

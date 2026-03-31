@@ -6,6 +6,8 @@ namespace BookGraph.Runtime
     public class B_DefaultPage : B_Page
     {
         [SerializeField] TextMeshProUGUI text;
+        [SerializeField] TextMeshProUGUI pageNumber;
+
         public override void WriteThePage(RuntimeNode node)
         {
             if (node is RuntimeDefaultPageNode)
@@ -20,6 +22,8 @@ namespace BookGraph.Runtime
                 {
                     text.text = defaultPage.PageText;
                 }
+
+                pageNumber.text = defaultPage.TargetPage.ToString();
             }
         }
     }
