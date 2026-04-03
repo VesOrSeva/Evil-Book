@@ -8,6 +8,9 @@ namespace BookGraph.Runtime
     {
         [SerializeField] RuntimeGraph currentGraph;
         [SerializeField] Book book;
+        [SerializeField] AutoFlip autoFlip;
+
+        [Header("Page Prefabs")]
         [SerializeField] GameObject blankPagePrefab;
         [SerializeField] GameObject defaultPagePrefab;
         [SerializeField] GameObject pageWithHeaderPrefab;
@@ -15,6 +18,7 @@ namespace BookGraph.Runtime
 
         private Dictionary<string, RuntimeNode> nodeLookup = new();
         private RuntimeNode currentNode;
+        Coroutine flipRoutine;
 
         protected override void Awake()
         {
@@ -105,7 +109,7 @@ namespace BookGraph.Runtime
         private void HandleDefaultPageNode(RuntimeDefaultPageNode node)
         {
             var entry = new PageEntry(defaultPagePrefab, node);
-            book.ReplacePage(node.TargetPage - 1, entry);
+            book.ReplacePage(GetPageNumber(node.TargetPage), entry);
 
             if (!string.IsNullOrEmpty(node.NextNodeId)) GoToNode(node.NextNodeId);
             else EndDialogue();
@@ -114,7 +118,7 @@ namespace BookGraph.Runtime
         private void HandlePageWithHeaderNode(RuntimePageWithHeaderNode node)
         {
             var entry = new PageEntry(pageWithHeaderPrefab, node);
-            book.ReplacePage(node.TargetPage - 1, entry);
+            book.ReplacePage(GetPageNumber(node.TargetPage), entry);
 
             if (!string.IsNullOrEmpty(node.NextNodeId)) GoToNode(node.NextNodeId);
             else EndDialogue();
@@ -123,7 +127,7 @@ namespace BookGraph.Runtime
         private void HandleSpecialPageNode(RuntimeSpecialPageNode node)
         {
             var entry = new PageEntry(node.PagePrefab, node);
-            book.ReplacePage(node.TargetPage - 1, entry);
+            book.ReplacePage(GetPageNumber(node.TargetPage), entry);
 
             if (!string.IsNullOrEmpty(node.NextNodeId)) GoToNode(node.NextNodeId);
             else EndDialogue();
@@ -131,7 +135,7 @@ namespace BookGraph.Runtime
 
         private void HandleErasePageNode(RuntimeErasePageNode node)
         {
-            book.RemovePage(node.TargetPage - 1);
+            book.RemovePage(GetPageNumber(node.TargetPage));
 
             if (!string.IsNullOrEmpty(node.NextNodeId)) GoToNode(node.NextNodeId);
             else EndDialogue();
@@ -139,7 +143,12 @@ namespace BookGraph.Runtime
 
         private void HandleFlipPagesNode(RuntimeFlipPagesNode node)
         {
-            book.GoToPage(node.TargetPage);
+            StartCoroutine(HandleFlipPagesRoutine(node));
+        }
+
+        IEnumerator HandleFlipPagesRoutine(RuntimeFlipPagesNode node)
+        {
+            yield return FlipToPageRoutine(GetPageNumber(node.TargetPage));
 
             if (!string.IsNullOrEmpty(node.NextNodeId)) GoToNode(node.NextNodeId);
             else EndDialogue();
@@ -148,14 +157,14 @@ namespace BookGraph.Runtime
         private void HandleChoicePageNode(RuntimeChoicePageNode node)
         {
             var entry = new PageEntry(pageChoicePagePrefab, node);
-            book.ReplacePage(node.TargetPage - 1, entry);
+            book.ReplacePage(GetPageNumber(node.TargetPage), entry);
         }
 
         private void HandleConditionNode(RuntimeConditionNode node)
         {
             if (string.IsNullOrEmpty(node.NextNodeId)) EndDialogue();
 
-            var condition = new PageCondition(node.TargetPage - 1, node.NextNodeId);
+            var condition = new PageCondition(GetPageNumber(node.TargetPage), node.NextNodeId);
             book.AddCondition(condition);
         }
 
@@ -174,7 +183,7 @@ namespace BookGraph.Runtime
 
         private int GetPageNumber(int targetPage)
         {
-            return targetPage + 1;
+            return targetPage - 1;
         }
 
         private void CheckPageConditions()
@@ -194,6 +203,34 @@ namespace BookGraph.Runtime
             Debug.Log($"Condition triggered on page {pageIndex}, going to {condition.NextNodeId}");
 
             GoToNode(condition.NextNodeId);
+        }
+
+        public void FlipToPageAnimated(int targetPage)
+        {
+            if (flipRoutine != null) StopCoroutine(flipRoutine);
+            flipRoutine = StartCoroutine(FlipToPageRoutine(targetPage));
+        }
+
+        IEnumerator FlipToPageRoutine(int targetPage)
+        {
+            targetPage = targetPage % 2 == 0 ? targetPage : targetPage - 1;
+
+            while (book.currentPage != targetPage)
+            {
+                if (book.currentPage < targetPage)
+                {
+                    autoFlip.FlipRightPage();
+                }
+                else
+                {
+                    autoFlip.FlipLeftPage();
+                }
+
+                yield return new WaitUntil(() => !book.IsAutoFlipping);
+                yield return new WaitForSeconds(autoFlip.TimeBetweenPages);
+            }
+
+            flipRoutine = null;
         }
     }
 }

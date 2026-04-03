@@ -372,13 +372,13 @@ public class Book : MonoBehaviour
     }
     public void OnMouseDragLeftPage()
     {
-        if (interactable)
+        if (interactable && !IsAutoFlipping)
         DragLeftPageToPoint(transformPoint(Input.mousePosition));
         
     }
     public void OnMouseRelease()
     {
-        if (interactable)
+        if (interactable && !IsAutoFlipping)
             ReleasePage();
     }
     public void ReleasePage()
@@ -591,16 +591,6 @@ public class Book : MonoBehaviour
             return;
 
         currentPage -= 2;
-        UpdateRenderedPages();
-    }
-
-    public void GoToPage(int index)
-    {
-        index = Mathf.Clamp(index, 0, pages.Count - 1);
-
-        // snap to left page
-        currentPage = index % 2 == 0 ? index : index - 1;
-
         UpdateRenderedPages();
     }
 

@@ -5,10 +5,8 @@ using System.Collections;
 public class AutoFlip : MonoBehaviour 
 {
     public FlipMode Mode;
-    public float PageFlipTime = 1;
-    public float TimeBetweenPages = 1;
-    public float DelayBeforeStarting = 0;
-    public bool AutoStartFlip = true;
+    public float PageFlipTime = 0.3f;
+    public float TimeBetweenPages = 0.05f;
     public Book ControledBook;
     public int AnimationFramesCount = 40;
     bool isFlipping = false;
@@ -16,7 +14,6 @@ public class AutoFlip : MonoBehaviour
     void Start () 
     {
         if (!ControledBook) ControledBook = GetComponent<Book>();
-        if (AutoStartFlip) StartFlipping();
         ControledBook.OnFlip.AddListener(new UnityEngine.Events.UnityAction(PageFlipped));
 	}
     void PageFlipped()
@@ -56,8 +53,6 @@ public class AutoFlip : MonoBehaviour
 
     IEnumerator FlipToEnd()
     {
-        yield return new WaitForSeconds(DelayBeforeStarting);
-
         float frameTime = PageFlipTime / AnimationFramesCount;
         float xc = (ControledBook.EndBottomRight.x + ControledBook.EndBottomLeft.x) / 2;
         float xl = ((ControledBook.EndBottomRight.x - ControledBook.EndBottomLeft.x) / 2) * 0.9f;

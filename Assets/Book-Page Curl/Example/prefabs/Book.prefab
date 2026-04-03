@@ -817,10 +817,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoFlip
   Mode: 0
-  PageFlipTime: 1
-  TimeBetweenPages: 1
-  DelayBeforeStarting: 1
-  AutoStartFlip: 1
+  PageFlipTime: 0.3
+  TimeBetweenPages: 0.05
   ControledBook: {fileID: 11415212}
   AnimationFramesCount: 40
 --- !u!1 &183440

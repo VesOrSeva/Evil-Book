@@ -501,12 +501,16 @@ PrefabInstance:
       objectReference: {fileID: 55350855}
     - target: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
       propertyPath: currentPage
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
       propertyPath: pagesParent
       value: 
       objectReference: {fileID: 226231943}
+    - target: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
+      propertyPath: interactable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
       propertyPath: pages.Array.size
       value: 0
@@ -2566,6 +2570,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4446b7192d8bf914ebaf797b64fe8b86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1370200379 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4714985424284948205, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
+  m_PrefabInstance: {fileID: 226231942}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bef881b4c6ed71248b493dcd92c831a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AutoFlip
 --- !u!1 &1423918912
 GameObject:
   m_ObjectHideFlags: 0
@@ -3494,6 +3509,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BookGraph.Runtime.BookManager
   currentGraph: {fileID: 3965311268370046156, guid: d66dfba0b075d1e4988c0836881a4e46, type: 3}
   book: {fileID: 1370200378}
+  autoFlip: {fileID: 1370200379}
   blankPagePrefab: {fileID: 4876944129429674808, guid: 08862e3e4838b514191ecd10ee980412, type: 3}
   defaultPagePrefab: {fileID: 355600863897402107, guid: f826b0295d594b8498e36f91a941429c, type: 3}
   pageWithHeaderPrefab: {fileID: 1457662120935377680, guid: fa86757ac4e4a304ea02f28051bc4ca5, type: 3}
