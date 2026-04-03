@@ -82,6 +82,10 @@ namespace BookGraph.Editor
                     ProcessConditionNode(condition, (RuntimeConditionNode)runtimeNode, idMap);
                     break;
 
+                case AudioNode audio:
+                    ProcessAudioNode(audio, (RuntimeAudioNode)runtimeNode, idMap);
+                    break;
+
                 case EndNode endNode:
                     ProcessEndNode(endNode, (RuntimeEndNode)runtimeNode, idMap);
                     break;
@@ -174,6 +178,15 @@ namespace BookGraph.Editor
             if (nextNodePort != null) runtimeNode.NextNodeId = nodeIDMap[nextNodePort.GetNode()];
         }
 
+        private void ProcessAudioNode(AudioNode node, RuntimeAudioNode runtimeNode, Dictionary<INode, string> nodeIDMap)
+        {
+            runtimeNode.Clip = GetPortValue<AudioClip>(node.GetInputPortByName("Audio Clip"));
+            runtimeNode.Volume = GetPortValue<float>(node.GetInputPortByName("Volume"));
+
+            var nextNodePort = node.GetOutputPortByName("Out").firstConnectedPort;
+            if (nextNodePort != null) runtimeNode.NextNodeId = nodeIDMap[nextNodePort.GetNode()];
+        }
+
         private void ProcessEndNode(EndNode node, RuntimeEndNode runtimeNode, Dictionary<INode, string> nodeIDMap)
         {
             // no logic for now
@@ -194,6 +207,7 @@ namespace BookGraph.Editor
                 FlipToPages => new RuntimeFlipPagesNode(),
                 ChoicePage => new RuntimeChoicePageNode(),
                 Condition => new RuntimeConditionNode(),
+                AudioNode => new RuntimeAudioNode(),
                 EndNode => new RuntimeEndNode(),
                 _ => throw new NotImplementedException($"Unsupported node type: {node.GetType()}")
             };
@@ -208,6 +222,7 @@ namespace BookGraph.Editor
             || node is FlipToPages 
             || node is ChoicePage 
             || node is Condition
+            || node is AudioNode
             || node is EndNode;
 
 

@@ -11,7 +11,7 @@ namespace BookGraph.Runtime
         private GameObject currentLeftPage;
         private GameObject currentRightPage;
 
-        public void SpawnPage(GameObject prefab, RuntimeNode node, RenderingPageType pageType, B_OptionsPage optionsPage)
+        public void SpawnPage(GameObject prefab, RuntimeNode node, RenderingPageType pageType, GameObject originalPage)
         {
             Transform parent = pageType == RenderingPageType.LeftFront ? LeftPageParent : RightPageParent;
 
@@ -26,7 +26,8 @@ namespace BookGraph.Runtime
             if (pageType == RenderingPageType.LeftFront) currentLeftPage = instance;
             else currentRightPage = instance;
 
-            instance.GetComponent<FakeChoicePage>()?.Initialize(node, optionsPage);
+            instance.GetComponent<FakeChoicePage>()?.Initialize(node, originalPage);
+            instance.GetComponent<OnPageContent>()?.Initialize(node, originalPage);
         }
 
         public void ClearPages()

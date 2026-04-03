@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace BookGraph.Runtime
 {
@@ -16,10 +17,13 @@ namespace BookGraph.Runtime
 
         private readonly List<GameObject> spawnedButtons = new();
 
-        public void UsedPage()
+        public void UsedPage(int buttonIndex)
         {
             used = true;
             optionPageParent.SetActive(true);
+            foreach (var button in spawnedButtons) button.GetComponent<Button>().interactable = false;
+            var usedButton = spawnedButtons[buttonIndex].GetComponent<Button>();
+            usedButton.interactable = true;
         }
 
         public override void WriteThePage(RuntimeNode node)
@@ -38,7 +42,7 @@ namespace BookGraph.Runtime
             if (type != RenderingPageType.LeftFront && type != RenderingPageType.RightFront) return;
 
             B_OnPageContentManager.Instance.ClearPages();
-            B_OnPageContentManager.Instance.SpawnPage(fakePagePrefab, node, type, this);
+            B_OnPageContentManager.Instance.SpawnPage(fakePagePrefab, node, type, gameObject);
             optionPageParent.SetActive(false);
         }
 

@@ -151,6 +151,19 @@ namespace BookGraph.Editor
     }
 
     [Serializable]
+    public class AudioNode : Node
+    {
+        protected override void OnDefinePorts(IPortDefinitionContext context)
+        {
+            context.AddInputPort("In").WithConnectorUI(PortConnectorUI.Arrowhead).Build();
+            context.AddOutputPort("Out").WithConnectorUI(PortConnectorUI.Arrowhead).Build();
+
+            context.AddInputPort<AudioClip>("Audio Clip").Build();
+            context.AddInputPort<float>("Volume").Build();
+        }
+    }
+
+    [Serializable]
     public class EndNode : Node
     {
         protected override void OnDefinePorts(IPortDefinitionContext context)

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,40 +20,47 @@ namespace BookGraph.Runtime
 
         private B_OptionsPage optionsPage;
 
-        public void Initialize(RuntimeNode node, B_OptionsPage page)
+        public void Initialize(RuntimeNode node, GameObject originalPage)
         {
             if (node is not RuntimeChoicePageNode choicePage) return;
             ClearOptions();
 
-            optionsPage = page;
+            optionsPage = originalPage.GetComponent<B_OptionsPage>();
+            if (optionsPage == null)
+            {
+                Debug.LogWarning("No Options Page!");
+                return;
+            }
 
             pageText.GetComponent<TextMeshProUGUI>().text = choicePage.PageText;
             pageNumber.text = choicePage.TargetPage.ToString();
 
-            foreach (var choice in choicePage.Choices)
+            for (int i = 0; i < choicePage.Choices.Count; i++)
             {
+                var choice = choicePage.Choices[i];
+
                 var buttonGO = Instantiate(optionButtonPrefab, optionsContainer.transform);
                 spawnedButtons.Add(buttonGO);
 
                 var button = buttonGO.GetComponent<Button>();
                 var text = buttonGO.GetComponentInChildren<TMP_Text>();
 
-                if (text != null)
-                    text.text = choice.ChoiceText;
+                if (text != null) text.text = choice.ChoiceText;
 
                 string nextNodeId = choice.NextNodeId;
+                int index = i;
 
                 button.onClick.RemoveAllListeners();
                 button.onClick.AddListener(() =>
                 {
-                    OnChoiceSelected(nextNodeId);
+                    OnChoiceSelected(nextNodeId, index);
                 });
             }
         }
 
-        private void OnChoiceSelected(string nodeId)
+        private void OnChoiceSelected(string nodeId, int buttonIndex)
         {
-            optionsPage.UsedPage();
+            optionsPage.UsedPage(buttonIndex);
             BookManager.Instance.GoToNode(nodeId);
             Destroy(gameObject);
         }
@@ -61,8 +69,7 @@ namespace BookGraph.Runtime
         {
             foreach (var btn in spawnedButtons)
             {
-                if (btn != null)
-                    Destroy(btn);
+                if (btn != null) Destroy(btn);
             }
             spawnedButtons.Clear();
         }

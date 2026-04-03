@@ -5,7 +5,7 @@ using System.Collections;
 public class AutoFlip : MonoBehaviour 
 {
     public FlipMode Mode;
-    public float PageFlipTime = 0.3f;
+    public float PageFlipTime = 0.2f;
     public float TimeBetweenPages = 0.05f;
     public Book ControledBook;
     public int AnimationFramesCount = 40;

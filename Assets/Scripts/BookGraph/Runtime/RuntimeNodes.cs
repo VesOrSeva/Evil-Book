@@ -82,6 +82,15 @@ namespace BookGraph.Runtime
         public string NextNodeId;
     }
 
+
+    [Serializable]
+    public class RuntimeAudioNode : RuntimeNode
+    {
+        public AudioClip Clip;
+        public float Volume;
+        public string NextNodeId;
+    }
+
     [Serializable]
     public class ChoiceData
     {

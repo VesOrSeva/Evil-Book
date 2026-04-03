@@ -93,6 +93,10 @@ namespace BookGraph.Runtime
                     HandleConditionNode(condition);
                     break;
 
+                case RuntimeAudioNode audio:
+                    HandleAudioNode(audio);
+                    break;
+
                 case RuntimeEndNode end:
                     HandleEndNode(end);
                     break;
@@ -166,6 +170,14 @@ namespace BookGraph.Runtime
 
             var condition = new PageCondition(GetPageNumber(node.TargetPage), node.NextNodeId);
             book.AddCondition(condition);
+        }
+
+        private void HandleAudioNode(RuntimeAudioNode node)
+        {
+            if (AudioManager.HasInstance) AudioManager.Instance.PlaySound(node.Clip, node.Volume);
+
+            if (!string.IsNullOrEmpty(node.NextNodeId)) GoToNode(node.NextNodeId);
+            else EndDialogue();
         }
 
         private void HandleEndNode(RuntimeEndNode node)
