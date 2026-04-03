@@ -6,6 +6,8 @@ namespace BookGraph.Runtime
     public class B_SpecialPage : B_Page
     {
         [SerializeField] SpecialPageTextFields[] texts;
+        [SerializeField] GameObject onPageContent;
+
         public override void WriteThePage(RuntimeNode node)
         {
             if (node is RuntimeSpecialPageNode)

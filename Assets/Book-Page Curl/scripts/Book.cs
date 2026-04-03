@@ -24,15 +24,29 @@ public class Book : MonoBehaviour
 
     PageEntry GetPage(int index)
     {
-        if (index < 0 || index >= pages.Count)
-            return null;
+        // Main book pages
+        if (index >= 0 && index < pages.Count) return pages[index];
 
-        return pages[index];
+        // Front pages
+        if (index < 0)
+        {
+            int frontIndex = frontPages.Count + index;
+            if (frontIndex >= 0 && frontIndex < frontPages.Count) return frontPages[frontIndex];
+        }
+
+        // Back pages
+        if (index >= pages.Count)
+        {
+            int backIndex = index - pages.Count;
+            if (backIndex >= 0 && backIndex < backPages.Count) return backPages[backIndex];
+        }
+
+        return null;
     }
 
     int GetLeftPageIndex()
     {
-        return currentPage % 2 == 0 ? currentPage : currentPage - 1;
+        return currentPage - (currentPage % 2);
     }
 
     #region Page Fliping <-------
@@ -45,6 +59,8 @@ public class Book : MonoBehaviour
     public bool enableShadowEffect = true;
     //represent the index of the sprite shown in the right page
     public int currentPage = 0;
+    int MinPageIndex => -frontPages.Count;
+    int MaxPageIndex => pages.Count + backPages.Count - 1;
     public int TotalPageCount => pages.Count;
     public Vector3 EndBottomLeft
     {
@@ -169,10 +185,8 @@ public class Book : MonoBehaviour
         if (IsAutoFlipping) return;
 
         f = Vector3.Lerp(f, transformPoint(Input.mousePosition), Time.deltaTime * 10);
-        if (mode == FlipMode.RightToLeft)
-            UpdateBookRTLToPoint(f);
-        else
-            UpdateBookLTRToPoint(f);
+        if (mode == FlipMode.RightToLeft) UpdateBookRTLToPoint(f);
+        else UpdateBookLTRToPoint(f);
     }
     public void UpdateBookLTRToPoint(Vector3 followLocation)
     {
@@ -299,7 +313,7 @@ public class Book : MonoBehaviour
     }
     public void DragRightPageToPoint(Vector3 point)
     {
-        if (GetLeftPageIndex() + 2 >= TotalPageCount) return;
+        if (GetLeftPageIndex() + 2 > MaxPageIndex) return;
         PrepareRTLPages();
 
         pageDragging = true;
@@ -332,7 +346,7 @@ public class Book : MonoBehaviour
     }
     public void DragLeftPageToPoint(Vector3 point)
     {
-        if (GetLeftPageIndex() <= 0) return;
+        if (GetLeftPageIndex() - 2 < MinPageIndex) return;
         PrepareLTRPages();
 
         pageDragging = true;
@@ -374,12 +388,9 @@ public class Book : MonoBehaviour
             pageDragging = false;
             float distanceToLeft = Vector2.Distance(c, ebl);
             float distanceToRight = Vector2.Distance(c, ebr);
-            if (distanceToRight < distanceToLeft && mode == FlipMode.RightToLeft)
-                TweenBack();
-            else if (distanceToRight > distanceToLeft && mode == FlipMode.LeftToRight)
-                TweenBack();
-            else
-                TweenForward();
+            if (distanceToRight < distanceToLeft && mode == FlipMode.RightToLeft) TweenBack();
+            else if (distanceToRight > distanceToLeft && mode == FlipMode.LeftToRight) TweenBack();
+            else TweenForward();
         }
     }
     Coroutine currentCoroutine;
@@ -446,7 +457,7 @@ public class Book : MonoBehaviour
         if (mode == FlipMode.RightToLeft) currentPage += 2;
         else  currentPage -= 2;
 
-        currentPage = Mathf.Clamp(currentPage, 0, pages.Count - 1);
+        currentPage = Mathf.Clamp(currentPage, MinPageIndex, MaxPageIndex);
         PagesRendering.Instance.ClearAll();
         UpdateRenderedPages();
 
@@ -514,8 +525,7 @@ public class Book : MonoBehaviour
 
             yield return new WaitForSeconds(0.025f);
         }
-        if (onFinish != null)
-            onFinish();
+        if (onFinish != null) onFinish();
     }
 
     #endregion
