@@ -1,8 +1,4 @@
-﻿//The implementation is based on this article:http://rbarraza.com/html5-canvas-pageflip/
-//As the rbarraza.com website is not live anymore you can get an archived version from web archive 
-//or check an archived version that I uploaded on my website: https://dandarawy.com/html5-canvas-pageflip/
-
-using BookGraph.Runtime;
+﻿using BookGraph.Runtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -54,7 +50,8 @@ public class Book : MonoBehaviour
     public Canvas canvas;
     [SerializeField] RectTransform BookPanel;
     public Sprite background;
-    public bool interactable = true;
+    int interactionLocks = 0;
+    public bool IsInteractable => interactionLocks == 0;
     public bool IsAutoFlipping = false;
     public bool enableShadowEffect = true;
     //represent the index of the sprite shown in the right page
@@ -104,9 +101,30 @@ public class Book : MonoBehaviour
     //current flip mode
     FlipMode mode;
 
+    public void LockInteraction()
+    {
+        interactionLocks++;
+    }
+
+    public void UnlockInteraction()
+    {
+        interactionLocks = Mathf.Max(0, interactionLocks - 1);
+        if (interactionLocks == 0) pageDragging = false;
+    }
+    public void ForceLock()
+    {
+        interactionLocks = int.MaxValue;
+    }
+
+    public void ForceUnlock()
+    {
+        interactionLocks = 0;
+        pageDragging = false;
+    }
+
     void Start()
     {
-        if (!canvas) canvas=GetComponentInParent<Canvas>();
+        if (!canvas) canvas = GetComponentInParent<Canvas>();
         if (!canvas) Debug.LogError("Book should be a child to canvas");
 
         Left.gameObject.SetActive(false);
@@ -175,7 +193,9 @@ public class Book : MonoBehaviour
     }
     void Update()
     {
-        if (pageDragging && interactable)
+        if (!IsInteractable) return;
+
+        if (pageDragging)
         {
             UpdateBook();
         }
@@ -340,7 +360,7 @@ public class Book : MonoBehaviour
     }
     public void OnMouseDragRightPage()
     {
-        if (interactable)
+        if (!IsInteractable || IsAutoFlipping) return;
         DragRightPageToPoint(transformPoint(Input.mousePosition));
         
     }
@@ -372,14 +392,14 @@ public class Book : MonoBehaviour
     }
     public void OnMouseDragLeftPage()
     {
-        if (interactable && !IsAutoFlipping)
+        if (!IsInteractable || IsAutoFlipping) return;
         DragLeftPageToPoint(transformPoint(Input.mousePosition));
         
     }
     public void OnMouseRelease()
     {
-        if (interactable && !IsAutoFlipping)
-            ReleasePage();
+        if (!IsInteractable || IsAutoFlipping) return;
+        ReleasePage();
     }
     public void ReleasePage()
     {
@@ -516,6 +536,8 @@ public class Book : MonoBehaviour
     }
     public IEnumerator TweenTo(Vector3 to, float duration, System.Action onFinish)
     {
+        LockInteraction();
+
         int steps = (int)(duration / 0.025f);
         Vector3 displacement = (to - f) / steps;
         for (int i = 0; i < steps-1; i++)
@@ -526,7 +548,9 @@ public class Book : MonoBehaviour
 
             yield return new WaitForSeconds(0.025f);
         }
+
         if (onFinish != null) onFinish();
+        UnlockInteraction();
     }
 
     #endregion

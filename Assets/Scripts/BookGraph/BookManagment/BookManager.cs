@@ -1,5 +1,6 @@
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace BookGraph.Runtime
@@ -220,11 +221,12 @@ namespace BookGraph.Runtime
 
         IEnumerator FlipToPageRoutine(int targetPage)
         {
-            targetPage = targetPage % 2 == 0 ? targetPage : targetPage - 1;
+            book.LockInteraction();
+            int page = Mathf.Clamp(targetPage - (targetPage % 2), 0, book.TotalPageCount - 2);
 
-            while (book.currentPage != targetPage)
+            while (book.currentPage != page)
             {
-                if (book.currentPage < targetPage)
+                if (book.currentPage < page)
                 {
                     autoFlip.FlipRightPage();
                 }
@@ -237,6 +239,7 @@ namespace BookGraph.Runtime
                 yield return new WaitForSeconds(autoFlip.TimeBetweenPages);
             }
 
+            book.UnlockInteraction();
             flipRoutine = null;
         }
     }
