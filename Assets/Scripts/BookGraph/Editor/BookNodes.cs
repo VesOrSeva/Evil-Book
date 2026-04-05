@@ -136,7 +136,7 @@ namespace BookGraph.Editor
     }
 
     [Serializable]
-    public class Condition : Node
+    public class PageCondition : Node
     {
         protected override void OnDefinePorts(IPortDefinitionContext context)
         {

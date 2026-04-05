@@ -61,6 +61,11 @@ namespace BookGraph.Runtime
                 var text = buttonGO.GetComponentInChildren<TMP_Text>();
                 if (text != null) text.text = choice.ChoiceText;
             }
+
+            if (choicePage.PageLayout == 0)
+            {
+                optionsContainer.transform.SetAsFirstSibling();
+            }
         }
 
         private void ClearOptions()

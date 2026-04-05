@@ -15,6 +15,7 @@ public class MainMenuPage : OnPageContent
 
     public void ExitGame()
     {
+        Debug.Log("Closing the application");
         ApplicationManager.Instance.ExitGame();
     }
 }

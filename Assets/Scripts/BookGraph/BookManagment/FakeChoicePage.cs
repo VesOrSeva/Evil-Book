@@ -56,6 +56,11 @@ namespace BookGraph.Runtime
                     OnChoiceSelected(nextNodeId, index);
                 });
             }
+
+            if (choicePage.PageLayout == 0)
+            {
+                optionsContainer.transform.SetAsFirstSibling();
+            }
         }
 
         private void OnChoiceSelected(string nodeId, int buttonIndex)

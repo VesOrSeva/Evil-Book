@@ -147,7 +147,8 @@ namespace BookGraph.Runtime
 
         private void HandleFlipPagesNode(RuntimeFlipPagesNode node)
         {
-            StartCoroutine(HandleFlipPagesRoutine(node));
+            if (flipRoutine != null) StopCoroutine(flipRoutine);
+            flipRoutine = StartCoroutine(HandleFlipPagesRoutine(node));
         }
 
         IEnumerator HandleFlipPagesRoutine(RuntimeFlipPagesNode node)
@@ -215,12 +216,6 @@ namespace BookGraph.Runtime
             Debug.Log($"Condition triggered on page {pageIndex}, going to {condition.NextNodeId}");
 
             GoToNode(condition.NextNodeId);
-        }
-
-        public void FlipToPageAnimated(int targetPage)
-        {
-            if (flipRoutine != null) StopCoroutine(flipRoutine);
-            flipRoutine = StartCoroutine(FlipToPageRoutine(targetPage));
         }
 
         IEnumerator FlipToPageRoutine(int targetPage)

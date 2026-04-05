@@ -82,6 +82,7 @@ public class AutoFlip : MonoBehaviour
 
     IEnumerator FlipRTL(float xc, float xl, float h, float frameTime, float dx)
     {
+        yield return new WaitForEndOfFrame();
         ControledBook.IsAutoFlipping = true;
 
         float x = xc + xl;
@@ -101,6 +102,7 @@ public class AutoFlip : MonoBehaviour
     }
     IEnumerator FlipLTR(float xc, float xl, float h, float frameTime, float dx)
     {
+        yield return new WaitForEndOfFrame();
         ControledBook.IsAutoFlipping = true;
 
         float x = xc - xl;

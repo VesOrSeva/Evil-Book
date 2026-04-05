@@ -78,8 +78,8 @@ namespace BookGraph.Editor
                     ProcessChoicePageNode(choicePage, (RuntimeChoicePageNode)runtimeNode, idMap);
                     break;
 
-                case Condition condition:
-                    ProcessConditionNode(condition, (RuntimeConditionNode)runtimeNode, idMap);
+                case PageCondition condition:
+                    ProcessPageConditionNode(condition, (RuntimeConditionNode)runtimeNode, idMap);
                     break;
 
                 case AudioNode audio:
@@ -170,7 +170,7 @@ namespace BookGraph.Editor
             }
         }
 
-        private void ProcessConditionNode(Condition node, RuntimeConditionNode runtimeNode, Dictionary<INode, string> nodeIDMap)
+        private void ProcessPageConditionNode(PageCondition node, RuntimeConditionNode runtimeNode, Dictionary<INode, string> nodeIDMap)
         {
             runtimeNode.TargetPage = GetOptionValue<int>(node, "Target Page");
 
@@ -206,7 +206,7 @@ namespace BookGraph.Editor
                 ErasePage => new RuntimeErasePageNode(),
                 FlipToPages => new RuntimeFlipPagesNode(),
                 ChoicePage => new RuntimeChoicePageNode(),
-                Condition => new RuntimeConditionNode(),
+                PageCondition => new RuntimeConditionNode(),
                 AudioNode => new RuntimeAudioNode(),
                 EndNode => new RuntimeEndNode(),
                 _ => throw new NotImplementedException($"Unsupported node type: {node.GetType()}")
@@ -221,7 +221,7 @@ namespace BookGraph.Editor
             || node is ErasePage 
             || node is FlipToPages 
             || node is ChoicePage 
-            || node is Condition
+            || node is PageCondition
             || node is AudioNode
             || node is EndNode;
 
