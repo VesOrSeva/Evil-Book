@@ -7,6 +7,8 @@ namespace BookGraph.Runtime
     {
         [SerializeField] TextMeshProUGUI headerText;
         [SerializeField] TextMeshProUGUI text;
+        [SerializeField] TextMeshProUGUI pageNumber;
+
         public override void WriteThePage(RuntimeNode node)
         {
             if (node is RuntimePageWithHeaderNode)
@@ -23,6 +25,8 @@ namespace BookGraph.Runtime
                     headerText.text = headerPage.HeaderText;
                     text.text = headerPage.PageText;
                 }
+
+                pageNumber.text = headerPage.TargetPage.ToString();
             }
         }
     }

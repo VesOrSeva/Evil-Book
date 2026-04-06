@@ -479,98 +479,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 55350856}
     m_Modifications:
-    - target: {fileID: 128206, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 180032, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
       propertyPath: m_Name
       value: Book
       objectReference: {fileID: 0}
-    - target: {fileID: 183440, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
+      propertyPath: flipDuration
+      value: 0.2
       objectReference: {fileID: 0}
-    - target: {fileID: 11403584, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 1989484867092917050, guid: 8bb21a88bfa20f840a413602a148c0b3, type: 3}
-    - target: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
-      propertyPath: canvas
-      value: 
-      objectReference: {fileID: 55350855}
-    - target: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
-      propertyPath: currentPage
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
-      propertyPath: pagesParent
-      value: 
-      objectReference: {fileID: 226231943}
-    - target: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
-      propertyPath: interactable
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
-      propertyPath: pages.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
-      propertyPath: bookPages.Array.size
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
-      propertyPath: 'bookPages.Array.data[0]'
-      value: 
-      objectReference: {fileID: 21300000, guid: d4960128d2cef9c44bedfe4a87b29a28, type: 3}
-    - target: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
-      propertyPath: 'bookPages.Array.data[1]'
-      value: 
-      objectReference: {fileID: 21300000, guid: b1bac3987b1ad064a80f72496ee46425, type: 3}
-    - target: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
-      propertyPath: 'bookPages.Array.data[2]'
-      value: 
-      objectReference: {fileID: 21300000, guid: 9f1ddd79b2fa5444b9f0150b809a8dd0, type: 3}
-    - target: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
-      propertyPath: 'bookPages.Array.data[3]'
-      value: 
-      objectReference: {fileID: 21300000, guid: fca57dd61c151c649adcbc7ba39e71bb, type: 3}
-    - target: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
-      propertyPath: 'bookPages.Array.data[4]'
-      value: 
-      objectReference: {fileID: 21300000, guid: b85050c83db242e4eafba8f57eb350d9, type: 3}
-    - target: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
-      propertyPath: 'bookPages.Array.data[5]'
-      value: 
-      objectReference: {fileID: 21300000, guid: b0c18c676ab4d4343adc234472e1d618, type: 3}
-    - target: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
-      propertyPath: 'bookPages.Array.data[6]'
-      value: 
-      objectReference: {fileID: 21300000, guid: 86cccff4f962a034c841b8a741b9d50b, type: 3}
-    - target: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
-      propertyPath: 'bookPages.Array.data[7]'
-      value: 
-      objectReference: {fileID: 21300000, guid: 9ad9c7be1dcdd6d45ab6e643fc600a88, type: 3}
-    - target: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
-      propertyPath: 'bookPages.Array.data[8]'
-      value: 
-      objectReference: {fileID: 21300000, guid: a8371807677c9624f95debc13138fe33, type: 3}
-    - target: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
-      propertyPath: 'bookPages.Array.data[9]'
-      value: 
-      objectReference: {fileID: 21300000, guid: 1446aaef14913c641af0f211a1b53913, type: 3}
-    - target: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
-      propertyPath: 'bookPages.Array.data[10]'
-      value: 
-      objectReference: {fileID: 21300000, guid: b38f1555bc2bc5246a7c1a87e231e51c, type: 3}
-    - target: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
-      propertyPath: 'bookPages.Array.data[11]'
-      value: 
-      objectReference: {fileID: 21300000, guid: b38f1555bc2bc5246a7c1a87e231e51c, type: 3}
-    - target: {fileID: 11430880, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 8791617407156663858, guid: 8bb21a88bfa20f840a413602a148c0b3, type: 3}
     - target: {fileID: 22443772, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -578,10 +494,6 @@ PrefabInstance:
     - target: {fileID: 22443772, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 22443772, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22443772, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
       propertyPath: m_AnchorMax.x
@@ -653,10 +565,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22443772, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4714985424284948205, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
-      propertyPath: AutoStartFlip
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1046,15 +954,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 0.392}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.392}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 6f792455608885f4e9e33a9314f5ea56, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1130,16 +1038,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 616564162}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 921851369}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 200}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &616564164
@@ -1155,15 +1063,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 0.392}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.392}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 6f792455608885f4e9e33a9314f5ea56, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2434,16 +2342,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1298603108}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 633338225}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 200}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1298603110
@@ -2459,15 +2367,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 0.392}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.392}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 6f792455608885f4e9e33a9314f5ea56, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2534,15 +2442,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 0.392}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.392}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 6f792455608885f4e9e33a9314f5ea56, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -3510,7 +3418,7 @@ MonoBehaviour:
   currentGraph: {fileID: 3965311268370046156, guid: d66dfba0b075d1e4988c0836881a4e46, type: 3}
   book: {fileID: 1370200378}
   autoFlip: {fileID: 1370200379}
-  blankPagePrefab: {fileID: 4876944129429674808, guid: 08862e3e4838b514191ecd10ee980412, type: 3}
+  blankPagePrefab: {fileID: 355600863897402107, guid: 7b0debc5da8f7ee4597f55f9b661835a, type: 3}
   defaultPagePrefab: {fileID: 355600863897402107, guid: f826b0295d594b8498e36f91a941429c, type: 3}
   pageWithHeaderPrefab: {fileID: 1457662120935377680, guid: fa86757ac4e4a304ea02f28051bc4ca5, type: 3}
   pageChoicePagePrefab: {fileID: 1810158591940009311, guid: 7fa70de85dc541c4388ea1e4c4f1c646, type: 3}

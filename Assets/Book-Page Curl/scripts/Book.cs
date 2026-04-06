@@ -17,6 +17,7 @@ public class Book : MonoBehaviour
     [SerializeField] List<PageEntry> frontPages = new(2);
     [SerializeField] List<PageEntry> backPages = new(2);
     [SerializeField] List<PageCondition> conditions = new();
+    [SerializeField] float flipDuration = 0.2f;
 
     PageEntry GetPage(int index)
     {
@@ -83,6 +84,8 @@ public class Book : MonoBehaviour
     public RawImage LeftNext;
     public RawImage Right;
     public RawImage RightNext;
+    public float shadowsMaxAlpha = 0.8f;
+
     public UnityEvent OnFlip;
     float radius1, radius2;
     //Spine Bottom
@@ -224,13 +227,17 @@ public class Book : MonoBehaviour
         c = Calc_C_Position(followLocation);
         Vector3 t1;
         float clipAngle = CalcClipAngle(c, ebl, out t1);
-        //0 < T0_T1_Angle < 180
+        // 0 < T0_T1_Angle < 180
         clipAngle = (clipAngle + 180) % 180;
 
         ClippingPlane.transform.localEulerAngles = new Vector3(0, 0, clipAngle - 90);
         ClippingPlane.transform.position = BookPanel.TransformPoint(t1);
 
-        //page position and angle
+        // shadows
+        float progress = GetFlipProgressLTR();
+        UpdateShadowFade(ShadowLTR, progress);
+
+        // page position and angle
         Left.transform.position = BookPanel.TransformPoint(c);
         float C_T1_dy = t1.y - c.y;
         float C_T1_dx = t1.x - c.x;
@@ -266,7 +273,11 @@ public class Book : MonoBehaviour
         ClippingPlane.transform.localEulerAngles = new Vector3(0, 0, clipAngle + 90);
         ClippingPlane.transform.position = BookPanel.TransformPoint(t1);
 
-        //page position and angle
+        // shadows
+        float progress = GetFlipProgressRTL();
+        UpdateShadowFade(Shadow, progress);
+
+        // page position and angle
         Right.transform.position = BookPanel.TransformPoint(c);
         float C_T1_dy = t1.y - c.y;
         float C_T1_dx = t1.x - c.x;
@@ -464,12 +475,12 @@ public class Book : MonoBehaviour
         if (mode == FlipMode.RightToLeft)
         {
             if (currentCoroutine != null) StopCoroutine(currentCoroutine);
-            currentCoroutine = StartCoroutine(TweenTo(ebl, 0.15f, () => { Flip(); }));
+            currentCoroutine = StartCoroutine(TweenTo(ebl, () => { Flip(); }));
         }
         else
         {
             if (currentCoroutine != null) StopCoroutine(currentCoroutine);
-            currentCoroutine = StartCoroutine(TweenTo(ebr, 0.15f, () => { Flip(); }));
+            currentCoroutine = StartCoroutine(TweenTo(ebr, () => { Flip(); }));
         }
     }
 
@@ -499,7 +510,7 @@ public class Book : MonoBehaviour
     {
         if (mode == FlipMode.RightToLeft)
         {
-            currentCoroutine = StartCoroutine(TweenTo(ebr,0.15f,
+            currentCoroutine = StartCoroutine(TweenTo(ebr,
                 () =>
                 {
                     PagesRendering.Instance.ClearAll();
@@ -517,7 +528,7 @@ public class Book : MonoBehaviour
         }
         else
         {
-            currentCoroutine = StartCoroutine(TweenTo(ebl, 0.15f,
+            currentCoroutine = StartCoroutine(TweenTo(ebl,
                 () =>
                 {
                     PagesRendering.Instance.ClearAll();
@@ -534,11 +545,11 @@ public class Book : MonoBehaviour
                 ));
         }
     }
-    public IEnumerator TweenTo(Vector3 to, float duration, System.Action onFinish)
+    public IEnumerator TweenTo(Vector3 to, System.Action onFinish)
     {
         LockInteraction();
 
-        int steps = (int)(duration / 0.025f);
+        int steps = (int)(flipDuration / 0.015f);
         Vector3 displacement = (to - f) / steps;
         for (int i = 0; i < steps-1; i++)
         {
@@ -546,11 +557,37 @@ public class Book : MonoBehaviour
             UpdateBookRTLToPoint( f + displacement);
             else UpdateBookLTRToPoint(f + displacement);
 
-            yield return new WaitForSeconds(0.025f);
+            yield return new WaitForSeconds(0.015f);
         }
 
         if (onFinish != null) onFinish();
         UnlockInteraction();
+    }
+
+    #endregion
+
+    #region Shadows
+
+    float GetFlipProgressRTL()
+    {
+        float total = Vector2.Distance(ebr, ebl);
+        float current = Vector2.Distance(c, ebr);
+        return Mathf.Clamp01(current / total);
+    }
+
+    float GetFlipProgressLTR()
+    {
+        float total = Vector2.Distance(ebr, ebl);
+        float current = Vector2.Distance(c, ebl);
+        return Mathf.Clamp01(current / total);
+    }
+
+    void UpdateShadowFade(Image shadow, float progress)
+    {
+        if (!enableShadowEffect) return;
+        Color col = shadow.color;
+        col.a = Mathf.Lerp(shadowsMaxAlpha, 0f, progress);
+        shadow.color = col;
     }
 
     #endregion
@@ -560,7 +597,16 @@ public class Book : MonoBehaviour
     public void InitializePages(GameObject blankPrefab, int pageCount)
     {
         pages.Clear();
-        for (int i = 0; i < pageCount; i++) pages.Add(new PageEntry(blankPrefab));
+
+        for (int i = 0; i < pageCount; i++)
+        {
+            var node = new RuntimeBlankPageNode
+            {
+                TargetPage = i + 1
+            };
+
+            pages.Add(new PageEntry(blankPrefab, node));
+        }
     }
 
     public void InsertPage(int index, PageEntry entry)

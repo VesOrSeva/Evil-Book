@@ -23,6 +23,12 @@ namespace BookGraph.Runtime
     }
 
     [Serializable]
+    public class RuntimeBlankPageNode : RuntimeNode
+    {
+        public int TargetPage;
+    }
+
+    [Serializable]
     public class RuntimeDefaultPageNode : RuntimeNode
     {
         public PageEffect PageEffect;

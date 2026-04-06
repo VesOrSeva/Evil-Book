@@ -6,6 +6,7 @@ namespace BookGraph.Runtime
     public class B_SpecialPage : B_Page
     {
         [SerializeField] SpecialPageTextFields[] texts;
+        [SerializeField] TextMeshProUGUI pageNumber;
         [SerializeField] GameObject specialPageParent;
         [SerializeField] GameObject onPagePrefab;
         [SerializeField] bool hasOnPageContent = false;
@@ -41,6 +42,7 @@ namespace BookGraph.Runtime
             if (node is RuntimeSpecialPageNode)
             {
                 var specialPage = (RuntimeSpecialPageNode)node;
+                if (pageNumber) pageNumber.text = specialPage.TargetPage.ToString();
 
                 if (specialPage.PageEffect == PageEffect.Write)
                 {
