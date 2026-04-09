@@ -25,6 +25,7 @@ public class Book : MonoBehaviour
     [SerializeField] Transform rightStack;
     [SerializeField] float thicknessPerPage = 5f;
     [SerializeField] float baseThickness = 5f;
+    [SerializeField] float uiLiftPerPage = 0.1f;
 
     PageEntry GetPage(int index)
     {
@@ -115,6 +116,24 @@ public class Book : MonoBehaviour
     private Vector3 leftStackStartingScale;
     private Vector3 rightStackStartingScale;
 
+    private Vector3 leftBasePos;
+    private Vector3 leftNextBasePos;
+    private Vector3 rightBasePos;
+    private Vector3 rightNextBasePos;
+
+    Vector3 leftDepthOffset;
+    Vector3 rightDepthOffset;
+    Vector3 nextPageOffsetLTR;
+    Vector3 nextPageOffsetRTL;
+
+    Vector3 leftTargetScale;
+    Vector3 rightTargetScale;
+
+    Vector3 leftTargetOffset;
+    Vector3 rightTargetOffset;
+
+    private Coroutine thicknessCoroutine;
+
     public void LockInteraction()
     {
         interactionLocks++;
@@ -143,6 +162,13 @@ public class Book : MonoBehaviour
 
         leftStackStartingScale = leftStack.transform.localScale;
         rightStackStartingScale = rightStack.transform.localScale;
+
+        leftBasePos = Left.transform.position;
+        leftNextBasePos = LeftNext.transform.position;
+
+        rightBasePos = Right.transform.position;
+        rightNextBasePos = RightNext.transform.position;
+
         Left.gameObject.SetActive(false);
         Right.gameObject.SetActive(false);
         UpdateRenderedPages();
@@ -233,6 +259,7 @@ public class Book : MonoBehaviour
         ShadowLTR.transform.localEulerAngles = new Vector3(0, 0, 0);
         Left.transform.SetParent(ClippingPlane.transform, true);
 
+        SetLocalZ(Right.transform, leftDepthOffset.z);
         Right.transform.SetParent(BookPanel.transform, true);
         Right.transform.localEulerAngles = Vector3.zero;
         LeftNext.transform.SetParent(BookPanel.transform, true);
@@ -244,22 +271,24 @@ public class Book : MonoBehaviour
         clipAngle = (clipAngle + 180) % 180;
 
         ClippingPlane.transform.localEulerAngles = new Vector3(0, 0, clipAngle - 90);
-        ClippingPlane.transform.position = BookPanel.TransformPoint(t1);
+        ClippingPlane.transform.position = BookPanel.TransformPoint(t1) + leftTargetOffset;
 
         // shadows
         float progress = GetFlipProgressLTR();
         UpdateShadowFade(ShadowLTR, progress);
 
         // page position and angle
-        Left.transform.position = BookPanel.TransformPoint(c);
+        Left.transform.position = BookPanel.TransformPoint(c) + leftDepthOffset;
         float C_T1_dy = t1.y - c.y;
         float C_T1_dx = t1.x - c.x;
         float C_T1_Angle = Mathf.Atan2(C_T1_dy, C_T1_dx) * Mathf.Rad2Deg;
         Left.transform.localEulerAngles = new Vector3(0, 0, C_T1_Angle - 90 - clipAngle);
 
         NextPageClip.transform.localEulerAngles = new Vector3(0, 0, clipAngle - 90);
-        NextPageClip.transform.position = BookPanel.TransformPoint(t1);
+        NextPageClip.transform.position = BookPanel.TransformPoint(t1) + nextPageOffsetLTR;
         LeftNext.transform.SetParent(NextPageClip.transform, true);
+        SetLocalZ(LeftNext.transform, 0);
+
         Right.transform.SetParent(ClippingPlane.transform, true);
         Right.transform.SetAsFirstSibling();
 
@@ -274,6 +303,7 @@ public class Book : MonoBehaviour
         Shadow.transform.localEulerAngles = Vector3.zero;
         Right.transform.SetParent(ClippingPlane.transform, true);
 
+        SetLocalZ(Left.transform, rightDepthOffset.z);
         Left.transform.SetParent(BookPanel.transform, true);
         Left.transform.localEulerAngles = Vector3.zero;
         RightNext.transform.SetParent(BookPanel.transform, true);
@@ -284,22 +314,24 @@ public class Book : MonoBehaviour
 
         ClippingPlane.rectTransform.pivot = new Vector2(1, 0.35f);
         ClippingPlane.transform.localEulerAngles = new Vector3(0, 0, clipAngle + 90);
-        ClippingPlane.transform.position = BookPanel.TransformPoint(t1);
+        ClippingPlane.transform.position = BookPanel.TransformPoint(t1) + rightTargetOffset;
 
         // shadows
         float progress = GetFlipProgressRTL();
         UpdateShadowFade(Shadow, progress);
 
         // page position and angle
-        Right.transform.position = BookPanel.TransformPoint(c);
+        Right.transform.position = BookPanel.TransformPoint(c) + rightDepthOffset;
         float C_T1_dy = t1.y - c.y;
         float C_T1_dx = t1.x - c.x;
         float C_T1_Angle = Mathf.Atan2(C_T1_dy, C_T1_dx) * Mathf.Rad2Deg;
         Right.transform.localEulerAngles = new Vector3(0, 0, C_T1_Angle - (clipAngle + 90));
 
         NextPageClip.transform.localEulerAngles = new Vector3(0, 0, clipAngle + 90);
-        NextPageClip.transform.position = BookPanel.TransformPoint(t1);
+        NextPageClip.transform.position = BookPanel.TransformPoint(t1) + nextPageOffsetRTL;
         RightNext.transform.SetParent(NextPageClip.transform, true);
+        SetLocalZ(RightNext.transform, 0);
+
         Left.transform.SetParent(ClippingPlane.transform, true);
         Left.transform.SetAsFirstSibling();
 
@@ -325,10 +357,9 @@ public class Book : MonoBehaviour
     }
     private float normalizeT1X(float t1,Vector3 corner,Vector3 sb)
     {
-        if (t1 > sb.x && sb.x > corner.x)
-            return sb.x;
-        if (t1 < sb.x && sb.x < corner.x)
-            return sb.x;
+        if (t1 > sb.x && sb.x > corner.x) return sb.x;
+        if (t1 < sb.x && sb.x < corner.x) return sb.x;
+
         return t1;
     }
     private Vector3 Calc_C_Position(Vector3 followLocation)
@@ -341,41 +372,39 @@ public class Book : MonoBehaviour
         Vector3 r1 = new Vector3(radius1 * Mathf.Cos(F_SB_Angle),radius1 * Mathf.Sin(F_SB_Angle), 0) + sb;
 
         float F_SB_distance = Vector2.Distance(f, sb);
-        if (F_SB_distance < radius1)
-            c = f;
-        else
-            c = r1;
+        if (F_SB_distance < radius1) c = f;
+        else c = r1;
+
         float F_ST_dy = c.y - st.y;
         float F_ST_dx = c.x - st.x;
         float F_ST_Angle = Mathf.Atan2(F_ST_dy, F_ST_dx);
-        Vector3 r2 = new Vector3(radius2 * Mathf.Cos(F_ST_Angle),
-           radius2 * Mathf.Sin(F_ST_Angle), 0) + st;
+        Vector3 r2 = new Vector3(radius2 * Mathf.Cos(F_ST_Angle), radius2 * Mathf.Sin(F_ST_Angle), 0) + st;
         float C_ST_distance = Vector2.Distance(c, st);
-        if (C_ST_distance > radius2)
-            c = r2;
+
+        if (C_ST_distance > radius2) c = r2;
         return c;
     }
     public void DragRightPageToPoint(Vector3 point)
     {
         if (GetLeftPageIndex() + 2 > MaxPageIndex) return;
         PrepareRTLPages();
+        UpdateThicknessImmediate();
 
         pageDragging = true;
         mode = FlipMode.RightToLeft;
         f = point;
-
 
         NextPageClip.rectTransform.pivot = new Vector2(0, 0.12f);
         ClippingPlane.rectTransform.pivot = new Vector2(1, 0.35f);
 
         Left.gameObject.SetActive(true);
         Left.rectTransform.pivot = new Vector2(0, 0);
-        Left.transform.position = RightNext.transform.position;
+        Left.transform.position = RightNext.transform.position + leftDepthOffset;
         Left.transform.eulerAngles = new Vector3(0, 0, 0);
         Left.transform.SetAsFirstSibling();
         
         Right.gameObject.SetActive(true);
-        Right.transform.position = RightNext.transform.position;
+        Right.transform.position = RightNext.transform.position + rightDepthOffset;
         Right.transform.eulerAngles = new Vector3(0, 0, 0);
 
         LeftNext.transform.SetAsFirstSibling();
@@ -385,6 +414,7 @@ public class Book : MonoBehaviour
     public void OnMouseDragRightPage()
     {
         if (!IsInteractable || IsAutoFlipping) return;
+        if (thicknessCoroutine != null) StopCoroutine(thicknessCoroutine);
         DragRightPageToPoint(transformPoint(Input.mousePosition));
         
     }
@@ -392,6 +422,7 @@ public class Book : MonoBehaviour
     {
         if (GetLeftPageIndex() - 2 < MinPageIndex) return;
         PrepareLTRPages();
+        UpdateThicknessImmediate();
 
         pageDragging = true;
         mode = FlipMode.LeftToRight;
@@ -401,13 +432,13 @@ public class Book : MonoBehaviour
         ClippingPlane.rectTransform.pivot = new Vector2(0, 0.35f);
 
         Right.gameObject.SetActive(true);
-        Right.transform.position = LeftNext.transform.position;
+        Right.transform.position = LeftNext.transform.position + rightDepthOffset;
         Right.transform.eulerAngles = new Vector3(0, 0, 0);
         Right.transform.SetAsFirstSibling();
 
         Left.gameObject.SetActive(true);
         Left.rectTransform.pivot = new Vector2(1, 0);
-        Left.transform.position = LeftNext.transform.position;
+        Left.transform.position = LeftNext.transform.position + leftDepthOffset;
         Left.transform.eulerAngles = new Vector3(0, 0, 0);
 
         RightNext.transform.SetAsFirstSibling();
@@ -417,6 +448,7 @@ public class Book : MonoBehaviour
     public void OnMouseDragLeftPage()
     {
         if (!IsInteractable || IsAutoFlipping) return;
+        if (thicknessCoroutine != null) StopCoroutine(thicknessCoroutine);
         DragLeftPageToPoint(transformPoint(Input.mousePosition));
         
     }
@@ -504,8 +536,6 @@ public class Book : MonoBehaviour
 
         currentPage = Mathf.Clamp(currentPage, MinPageIndex, MaxPageIndex);
         PagesRendering.Instance.ClearAll();
-        UpdateRenderedPages();
-        UpdateThickness();
 
         LeftNext.transform.SetParent(BookPanel.transform, true);
         Left.transform.SetParent(BookPanel.transform, true);
@@ -517,6 +547,9 @@ public class Book : MonoBehaviour
 
         Shadow.gameObject.SetActive(false);
         ShadowLTR.gameObject.SetActive(false);
+
+        UpdateThickness();
+        UpdateRenderedPages();
         if (OnFlip != null) OnFlip.Invoke();
     }
 
@@ -608,16 +641,100 @@ public class Book : MonoBehaviour
 
     #region Thickness
 
+    void UpdateThicknessImmediate()
+    {
+        int totalPages = TotalPageCount + frontPages.Count + backPages.Count;
+        int leftPages = Mathf.Clamp(currentPage + frontPages.Count, 0, totalPages);
+        int rightPages = totalPages - leftPages;
+
+        Vector3 depthDir = BookPanel.forward;
+
+        nextPageOffsetLTR = depthDir * (leftPages - 1) * -uiLiftPerPage;
+        nextPageOffsetRTL = depthDir * (rightPages - 1) * -uiLiftPerPage;
+    }
+
     void UpdateThickness()
     {
-        int leftPages = Mathf.Clamp(currentPage, 0, TotalPageCount);
-        int rightPages = TotalPageCount - leftPages;
+        int totalPages = TotalPageCount + frontPages.Count + backPages.Count;
+        int leftPages = Mathf.Clamp(currentPage + frontPages.Count, 0, totalPages);
+        int rightPages = totalPages - leftPages;
 
         float leftHeight = baseThickness + leftPages * thicknessPerPage;
         float rightHeight = baseThickness + rightPages * thicknessPerPage;
 
-        leftStack.localScale = new Vector3(leftStackStartingScale.x, leftStackStartingScale.y, leftHeight);
-        rightStack.localScale = new Vector3(rightStackStartingScale.x, rightStackStartingScale.y, rightHeight);
+        leftTargetScale = new Vector3(leftStackStartingScale.x, leftStackStartingScale.y, leftHeight);
+        rightTargetScale = new Vector3(rightStackStartingScale.x, rightStackStartingScale.y, rightHeight);
+
+        Vector3 depthDir = BookPanel.forward;
+
+        leftTargetOffset = depthDir * leftPages * -uiLiftPerPage;
+        rightTargetOffset = depthDir * rightPages * -uiLiftPerPage;
+
+        if (thicknessCoroutine != null) StopCoroutine(thicknessCoroutine);
+        thicknessCoroutine = StartCoroutine(AnimateThickness());
+    }
+
+    IEnumerator AnimateThickness(float duration = 0.2f)
+    {
+        float time = 0f;
+
+        Vector3 leftStartScale = leftStack.localScale;
+        Vector3 rightStartScale = rightStack.localScale;
+
+        Vector3 leftStartOffset;
+        Vector3 rightStartOffset;
+
+        if (mode == FlipMode.RightToLeft)
+        {
+            leftStartOffset = rightDepthOffset;
+            rightStartOffset = leftDepthOffset;
+        }
+        else
+        {
+            leftStartOffset = leftDepthOffset;
+            rightStartOffset = rightDepthOffset;
+        }
+
+        while (time < duration)
+        {
+            float t = time / duration;
+            t = Mathf.SmoothStep(0, 1, t);
+
+            if (mode == FlipMode.RightToLeft)
+            {
+                leftStack.localScale = Vector3.Lerp(leftStartScale, leftTargetScale, t);
+                leftDepthOffset = Vector3.Lerp(leftStartOffset, leftTargetOffset, t);
+
+                Left.transform.position = leftBasePos + leftDepthOffset;
+                LeftNext.transform.position = leftNextBasePos + leftDepthOffset;
+            }
+            else
+            {
+                rightStack.localScale = Vector3.Lerp(rightStartScale, rightTargetScale, t);
+                rightDepthOffset = Vector3.Lerp(rightStartOffset, rightTargetOffset, t);
+
+                Right.transform.position = rightBasePos + rightDepthOffset;
+                RightNext.transform.position = rightNextBasePos + rightDepthOffset;
+            }
+
+            B_OnPageContentManager.Instance.UpdatePageDepth(leftDepthOffset, rightDepthOffset);
+
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        leftStack.localScale = leftTargetScale;
+        rightStack.localScale = rightTargetScale;
+
+        leftDepthOffset = leftTargetOffset;
+        rightDepthOffset = rightTargetOffset;
+    }
+
+    void SetLocalZ(Transform t, float z)
+    {
+        Vector3 local = t.localPosition;
+        local.z = z;
+        t.localPosition = local;
     }
 
     #endregion
@@ -652,8 +769,7 @@ public class Book : MonoBehaviour
 
     public void ReplacePage(int index, PageEntry entry)
     {
-        if (index < 0 || index >= pages.Count)
-            return;
+        if (index < 0 || index >= pages.Count) return;
 
         pages[index] = entry;
         UpdateRenderedPages();
@@ -661,8 +777,7 @@ public class Book : MonoBehaviour
 
     public void RemovePage(int index)
     {
-        if (index < 0 || index >= pages.Count)
-            return;
+        if (index < 0 || index >= pages.Count) return;
 
         pages.RemoveAt(index);
 
@@ -675,24 +790,6 @@ public class Book : MonoBehaviour
     public void ClearPage(int index)
     {
         ReplacePage(index, null);
-    }
-
-    public void FlipForward()
-    {
-        if (currentPage + 2 >= pages.Count)
-            return;
-
-        currentPage += 2;
-        UpdateRenderedPages();
-    }
-
-    public void FlipBackward()
-    {
-        if (currentPage - 2 < 0)
-            return;
-
-        currentPage -= 2;
-        UpdateRenderedPages();
     }
 
     public void AddCondition(PageCondition condition)
