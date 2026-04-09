@@ -13,11 +13,18 @@ public enum FlipMode
 
 public class Book : MonoBehaviour 
 {
+    [Header("Pages")]
     [SerializeField] List<PageEntry> pages = new();
     [SerializeField] List<PageEntry> frontPages = new(2);
     [SerializeField] List<PageEntry> backPages = new(2);
     [SerializeField] List<PageCondition> conditions = new();
     [SerializeField] float flipDuration = 0.2f;
+
+    [Header("Page Stacks")]
+    [SerializeField] Transform leftStack;
+    [SerializeField] Transform rightStack;
+    [SerializeField] float thicknessPerPage = 5f;
+    [SerializeField] float baseThickness = 5f;
 
     PageEntry GetPage(int index)
     {
@@ -48,6 +55,7 @@ public class Book : MonoBehaviour
 
     #region Page Fliping <-------
 
+    [Header("UI")]
     public Canvas canvas;
     [SerializeField] RectTransform BookPanel;
     public Sprite background;
@@ -104,6 +112,9 @@ public class Book : MonoBehaviour
     //current flip mode
     FlipMode mode;
 
+    private Vector3 leftStackStartingScale;
+    private Vector3 rightStackStartingScale;
+
     public void LockInteraction()
     {
         interactionLocks++;
@@ -130,6 +141,8 @@ public class Book : MonoBehaviour
         if (!canvas) canvas = GetComponentInParent<Canvas>();
         if (!canvas) Debug.LogError("Book should be a child to canvas");
 
+        leftStackStartingScale = leftStack.transform.localScale;
+        rightStackStartingScale = rightStack.transform.localScale;
         Left.gameObject.SetActive(false);
         Right.gameObject.SetActive(false);
         UpdateRenderedPages();
@@ -492,6 +505,7 @@ public class Book : MonoBehaviour
         currentPage = Mathf.Clamp(currentPage, MinPageIndex, MaxPageIndex);
         PagesRendering.Instance.ClearAll();
         UpdateRenderedPages();
+        UpdateThickness();
 
         LeftNext.transform.SetParent(BookPanel.transform, true);
         Left.transform.SetParent(BookPanel.transform, true);
@@ -588,6 +602,22 @@ public class Book : MonoBehaviour
         Color col = shadow.color;
         col.a = Mathf.Lerp(shadowsMaxAlpha, 0f, progress);
         shadow.color = col;
+    }
+
+    #endregion
+
+    #region Thickness
+
+    void UpdateThickness()
+    {
+        int leftPages = Mathf.Clamp(currentPage, 0, TotalPageCount);
+        int rightPages = TotalPageCount - leftPages;
+
+        float leftHeight = baseThickness + leftPages * thicknessPerPage;
+        float rightHeight = baseThickness + rightPages * thicknessPerPage;
+
+        leftStack.localScale = new Vector3(leftStackStartingScale.x, leftStackStartingScale.y, leftHeight);
+        rightStack.localScale = new Vector3(rightStackStartingScale.x, rightStackStartingScale.y, rightHeight);
     }
 
     #endregion
