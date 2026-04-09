@@ -791,9 +791,9 @@ MonoBehaviour:
   flipDuration: 0.2
   leftStack: {fileID: 6964268951369228143}
   rightStack: {fileID: 3524262951194256516}
-  thicknessPerPage: 8
+  thicknessPerPage: 4.5
   baseThickness: 5
-  uiLiftPerPage: 0.005
+  uiLiftPerPage: 0.003
   canvas: {fileID: 0}
   BookPanel: {fileID: 22443772}
   background: {fileID: 21300000, guid: 3c47abcf3fb3d12408efe3073b2e379f, type: 3}

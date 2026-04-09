@@ -685,6 +685,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BookGraph.Runtime.B_SpecialPage
   texts: []
   pageNumber: {fileID: 0}
-  specialPageParent: {fileID: 8860685108981245231, guid: d7df772b8ac7fc048bb11f6de5458bb5, type: 3}
-  onPagePrefab: {fileID: 5466884525828364163}
+  specialPageParent: {fileID: 5466884525828364163}
+  onPagePrefab: {fileID: 8860685108981245231, guid: d7df772b8ac7fc048bb11f6de5458bb5, type: 3}
   hasOnPageContent: 1

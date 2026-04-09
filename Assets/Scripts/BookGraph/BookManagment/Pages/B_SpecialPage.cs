@@ -16,7 +16,7 @@ namespace BookGraph.Runtime
         {
             if (!hasOnPageContent) return;
             used = true;
-            specialPageParent.SetActive(true);
+            specialPageParent.SetActive(false);
         }
 
         public override void OnPageVisible(RuntimeNode node)
