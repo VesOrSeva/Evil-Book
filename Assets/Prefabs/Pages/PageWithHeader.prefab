@@ -55,6 +55,7 @@ MonoBehaviour:
   headerText: {fileID: 2111224162387867683}
   text: {fileID: 3211908960270225828}
   pageNumber: {fileID: 3733557121770437879}
+  background: {fileID: 6586405609123186876}
 --- !u!1 &4473580459696681852
 GameObject:
   m_ObjectHideFlags: 0

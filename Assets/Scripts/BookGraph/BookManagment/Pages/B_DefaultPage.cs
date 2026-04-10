@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace BookGraph.Runtime
 {
@@ -7,9 +8,12 @@ namespace BookGraph.Runtime
     {
         [SerializeField] TextMeshProUGUI text;
         [SerializeField] TextMeshProUGUI pageNumber;
+        [SerializeField] Image background;
 
         public override void WriteThePage(RuntimeNode node)
         {
+            background.sprite = B_PagesBackground.Instance.GetRandom();
+
             if (node is RuntimeDefaultPageNode)
             {
                 var defaultPage = (RuntimeDefaultPageNode)node;

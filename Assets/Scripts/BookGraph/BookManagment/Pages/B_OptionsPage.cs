@@ -13,6 +13,8 @@ namespace BookGraph.Runtime
         [SerializeField] GameObject optionButtonPrefab;
         [SerializeField] GameObject pageText;
         [SerializeField] TextMeshProUGUI pageNumber;
+        [SerializeField] Image background;
+
         private bool used = false;
 
         private readonly List<GameObject> spawnedButtons = new();
@@ -29,6 +31,7 @@ namespace BookGraph.Runtime
         public override void WriteThePage(RuntimeNode node)
         {
             SpawnPage(node);
+            background.sprite = B_PagesBackground.Instance.GetRandom();
         }
 
         public override void OnPageVisible(RuntimeNode node)

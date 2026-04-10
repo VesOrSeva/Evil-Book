@@ -272,8 +272,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.25, y: 0.25}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -5, y: -5}
+  m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &22219260
 CanvasRenderer:
@@ -393,8 +393,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.75, y: 0}
   m_AnchorMax: {x: 1, y: 0.25}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 5, y: -5}
+  m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 1, y: 0}
 --- !u!222 &22234522
 CanvasRenderer:
@@ -724,6 +724,7 @@ GameObject:
   - component: {fileID: 22280180}
   - component: {fileID: 11415212}
   - component: {fileID: 4714985424284948205}
+  - component: {fileID: 3733846619495675101}
   m_Layer: 5
   m_Name: Book
   m_TagString: Untagged
@@ -793,7 +794,7 @@ MonoBehaviour:
   rightStack: {fileID: 3524262951194256516}
   thicknessPerPage: 4.5
   baseThickness: 5
-  uiLiftPerPage: 0.003
+  uiLiftPerPage: 0.0035
   canvas: {fileID: 0}
   BookPanel: {fileID: 22443772}
   background: {fileID: 21300000, guid: 3c47abcf3fb3d12408efe3073b2e379f, type: 3}
@@ -808,6 +809,8 @@ MonoBehaviour:
   LeftNext: {fileID: 3157067855111017524}
   Right: {fileID: 1053981848024794057}
   RightNext: {fileID: 8849206110937351185}
+  RightHotSpot: {fileID: 22447500}
+  LeftHotSpot: {fileID: 22407488}
   shadowsMaxAlpha: 1
   OnFlip:
     m_PersistentCalls:
@@ -828,6 +831,20 @@ MonoBehaviour:
   PageFlipTime: 0.2
   TimeBetweenPages: 0.05
   ControledBook: {fileID: 11415212}
+--- !u!114 &3733846619495675101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 180032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75fa45118be4ef643987be7e4ff4bd08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BookGraph.Runtime.B_OnPageContentManager
+  LeftPageParent: {fileID: 22447776}
+  RightPageParent: {fileID: 22425882}
 --- !u!1 &183440
 GameObject:
   m_ObjectHideFlags: 0

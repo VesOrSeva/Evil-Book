@@ -1382,7 +1382,7 @@ MonoBehaviour:
     - rid: 7071539987152634142
       type: {class: 'Constant`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: {fileID: 355600863897402107, guid: 19e4bed86aa327d4d924a9b783a4bd8f, type: 3}
+        m_Value: {fileID: 355600863897402107, guid: 72a1b0ea17d97a6418ca9d190257bee2, type: 3}
     - rid: 7071539987152634143
       type: {class: SpecialPage, ns: BookGraph.Editor, asm: Assembly-CSharp-Editor}
       data: 

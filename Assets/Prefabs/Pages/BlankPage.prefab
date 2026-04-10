@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookGraph.Runtime.B_BlankPage
   pageNumber: {fileID: 8205029178455810947}
+  background: {fileID: 3426180101906347037}
 --- !u!1 &863778025618830352
 GameObject:
   m_ObjectHideFlags: 0

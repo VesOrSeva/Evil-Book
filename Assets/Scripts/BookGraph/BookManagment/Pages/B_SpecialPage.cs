@@ -10,6 +10,7 @@ namespace BookGraph.Runtime
         [SerializeField] GameObject specialPageParent;
         [SerializeField] GameObject onPagePrefab;
         [SerializeField] bool hasOnPageContent = false;
+        [SerializeField] bool hasInPageContent = false;
         private bool used = false;
 
         public void UsedPage()
@@ -27,10 +28,17 @@ namespace BookGraph.Runtime
 
         public override void OnPageOpened(RuntimeNode node, RenderingPageType type)
         {
-            if (!hasOnPageContent) return;
+            if (!hasOnPageContent && !hasInPageContent) return;
 
             if (used) return;
             if (type != RenderingPageType.LeftFront && type != RenderingPageType.RightFront) return;
+
+            if (hasInPageContent)
+            {
+                onPagePrefab.SetActive(true);
+                used = true;
+                return;
+            }
 
             B_OnPageContentManager.Instance.ClearPages();
             B_OnPageContentManager.Instance.SpawnPage(onPagePrefab, node, type, gameObject);

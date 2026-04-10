@@ -35,16 +35,5 @@ namespace BookGraph.Runtime
             if (currentLeftPage != null) Destroy(currentLeftPage);
             if (currentRightPage != null) Destroy(currentRightPage);
         }
-
-        public void UpdatePageDepth(Vector3 leftOffset, Vector3 rightOffset)
-        {
-            var localLeft = LeftPageParent.localPosition;
-            localLeft.z = leftOffset.z * 1600f;
-            LeftPageParent.localPosition = localLeft;
-
-            var localRight = RightPageParent.localPosition;
-            localRight.z = rightOffset.z * 1600f;
-            RightPageParent.localPosition = localRight;
-        }
     }
 }

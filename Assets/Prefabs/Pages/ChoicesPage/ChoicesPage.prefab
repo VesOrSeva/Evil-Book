@@ -56,6 +56,7 @@ MonoBehaviour:
   optionButtonPrefab: {fileID: 3649666504359094423, guid: c2e3af378122de349b39f4d494116e08, type: 3}
   pageText: {fileID: 8858445136181046097}
   pageNumber: {fileID: 3688198749068978499}
+  background: {fileID: 3352546942075562451}
 --- !u!1 &4329789804512100603
 GameObject:
   m_ObjectHideFlags: 0

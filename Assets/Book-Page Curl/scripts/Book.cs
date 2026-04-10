@@ -93,6 +93,8 @@ public class Book : MonoBehaviour
     public RawImage LeftNext;
     public RawImage Right;
     public RawImage RightNext;
+    public Transform RightHotSpot;
+    public Transform LeftHotSpot;
     public float shadowsMaxAlpha = 0.8f;
 
     public UnityEvent OnFlip;
@@ -126,9 +128,6 @@ public class Book : MonoBehaviour
 
     Vector3 nextPageOffsetLTR;
     Vector3 nextPageOffsetRTL;
-
-    Vector3 clippingOffsetLTR;
-    Vector3 clippingOffsetRTL;
 
     Vector3 leftTargetScale;
     Vector3 rightTargetScale;
@@ -195,6 +194,7 @@ public class Book : MonoBehaviour
         ShadowLTR.rectTransform.sizeDelta = new Vector2(pageWidth, shadowPageHeight);
         ShadowLTR.rectTransform.pivot = new Vector2(0, (pageWidth / 2) / shadowPageHeight);
 
+        UpdateThickness();
     }
 
     private void CalcCurlCriticalPoints()
@@ -275,7 +275,7 @@ public class Book : MonoBehaviour
         clipAngle = (clipAngle + 180) % 180;
 
         ClippingPlane.transform.localEulerAngles = new Vector3(0, 0, clipAngle - 90);
-        ClippingPlane.transform.position = BookPanel.TransformPoint(t1) + clippingOffsetLTR;
+        ClippingPlane.transform.position = BookPanel.TransformPoint(t1) + leftTargetOffset;
 
         // shadows
         float progress = GetFlipProgressLTR();
@@ -318,7 +318,7 @@ public class Book : MonoBehaviour
 
         ClippingPlane.rectTransform.pivot = new Vector2(1, 0.35f);
         ClippingPlane.transform.localEulerAngles = new Vector3(0, 0, clipAngle + 90);
-        ClippingPlane.transform.position = BookPanel.TransformPoint(t1) + clippingOffsetRTL;
+        ClippingPlane.transform.position = BookPanel.TransformPoint(t1) + rightTargetOffset;
 
         // shadows
         float progress = GetFlipProgressRTL();
@@ -420,7 +420,8 @@ public class Book : MonoBehaviour
         if (!IsInteractable || IsAutoFlipping) return;
         if (thicknessCoroutine != null) StopCoroutine(thicknessCoroutine);
         DragRightPageToPoint(transformPoint(Input.mousePosition));
-        
+        AudioManager.Instance.PlayRandomSound(AudioBundle.Instance.GetFlipingStartClips, 0.7f);
+
     }
     public void DragLeftPageToPoint(Vector3 point)
     {
@@ -454,7 +455,7 @@ public class Book : MonoBehaviour
         if (!IsInteractable || IsAutoFlipping) return;
         if (thicknessCoroutine != null) StopCoroutine(thicknessCoroutine);
         DragLeftPageToPoint(transformPoint(Input.mousePosition));
-        
+        AudioManager.Instance.PlayRandomSound(AudioBundle.Instance.GetFlipingStartClips, 0.7f);       
     }
     public void OnMouseRelease()
     {
@@ -599,6 +600,7 @@ public class Book : MonoBehaviour
     public IEnumerator TweenTo(Vector3 to, System.Action onFinish)
     {
         LockInteraction();
+        AudioManager.Instance.PlayRandomSound(AudioBundle.Instance.GetFlipingEndClips, 0.7f);
 
         int steps = (int)(flipDuration / 0.015f);
         Vector3 displacement = (to - f) / steps;
@@ -653,11 +655,8 @@ public class Book : MonoBehaviour
 
         Vector3 depthDir = BookPanel.forward;
 
-        nextPageOffsetLTR = depthDir * (leftPages - 1) * -uiLiftPerPage;
-        nextPageOffsetRTL = depthDir * (rightPages - 1) * -uiLiftPerPage;
-
-        clippingOffsetLTR = nextPageOffsetLTR;
-        clippingOffsetRTL = nextPageOffsetRTL;
+        nextPageOffsetLTR = depthDir * (leftPages - 2) * -uiLiftPerPage;
+        nextPageOffsetRTL = depthDir * (rightPages - 2) * -uiLiftPerPage;
     }
 
     void UpdateThickness()
@@ -674,8 +673,8 @@ public class Book : MonoBehaviour
 
         Vector3 depthDir = BookPanel.forward;
 
-        leftTargetOffset = depthDir * (leftPages - 1) * -uiLiftPerPage;
-        rightTargetOffset = depthDir * (rightPages - 1) * -uiLiftPerPage;
+        leftTargetOffset = depthDir * leftPages * -uiLiftPerPage;
+        rightTargetOffset = depthDir * rightPages * -uiLiftPerPage;
 
         if (thicknessCoroutine != null) StopCoroutine(thicknessCoroutine);
         thicknessCoroutine = StartCoroutine(AnimateThickness());
@@ -733,11 +732,12 @@ public class Book : MonoBehaviour
                 leftStack.localScale = leftTargetScale;
             }
 
-            B_OnPageContentManager.Instance.UpdatePageDepth(leftTargetOffset, rightTargetOffset);
-
             time += Time.deltaTime;
             yield return null;
         }
+
+        SetLocalZ(RightHotSpot, rightTargetOffset.z * 1600f);
+        SetLocalZ(LeftHotSpot, leftTargetOffset.z * 1600f);
 
         leftStack.localScale = leftTargetScale;
         rightStack.localScale = rightTargetScale;
