@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1297738045683427706}
   - component: {fileID: 477883929562742827}
   m_Layer: 6
-  m_Name: DefaultPagePrefab
+  m_Name: FinalPageLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

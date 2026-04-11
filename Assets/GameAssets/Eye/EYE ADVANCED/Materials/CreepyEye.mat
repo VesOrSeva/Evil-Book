@@ -7,67 +7,63 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Baby03
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Name: CreepyEye
+  m_Shader: {fileID: -6465566751694194690, guid: 2ba5451f84cb8d142b2fd5c48e91de82, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords:
-  - _METALLICGLOSSMAP
-  m_LightmapFlags: 4
+  - _EMISSION
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap:
-    RenderType: Opaque
+    MotionVector: User
   disabledShaderPasses:
   - MOTIONVECTORS
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: aac8832fe28f4df4c9df99e277c7e125, type: 3}
+    - _CorneaBump:
+        m_Texture: {fileID: 2800000, guid: fb64935e844038c40a4780f4ef1a7693, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: da1d111343edd91489dc895d5dd81ab5, type: 3}
+    - _DiffuseCube:
+        m_Texture: {fileID: 8900000, guid: 81c5d3ca8d6bbae4387ed43e6ada115a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _DetailAlbedoMap:
-        m_Texture: {fileID: 0}
+    - _EyeBump:
+        m_Texture: {fileID: 2800000, guid: 81b3acbd0c61e354bb574c92d8fb9da0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _DetailMask:
-        m_Texture: {fileID: 0}
+    - _IrisBump:
+        m_Texture: {fileID: 2800000, guid: 778e5c3fd9fd91c43821754495d8bf1b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _DetailNormalMap:
-        m_Texture: {fileID: 0}
+    - _IrisColorTex:
+        m_Texture: {fileID: 2800000, guid: 7bd74139aa85dd14ea81a6fe54bd8465, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _EmissionMap:
-        m_Texture: {fileID: 0}
+    - _IrisTex:
+        m_Texture: {fileID: 2800000, guid: d6f59e45d58f66344811c1af0bf412a2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: aac8832fe28f4df4c9df99e277c7e125, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4f47073b006bcef44bc62e532cafc4fb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: 9880fc79b347e0c4a8556622c339a45b, type: 3}
+    - _ShadeIrisTex:
+        m_Texture: {fileID: 2800000, guid: b444eddaee4f4e84b82d5448a713adc1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _OcclusionMap:
-        m_Texture: {fileID: 2800000, guid: 6dcf76c2b415456468d96717c168164e, type: 3}
+    - _ShadeScleraTex:
+        m_Texture: {fileID: 2800000, guid: 4a04cda9fb11e7245b2e2b6ed221e008, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _ParallaxMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SpecGlossMap:
-        m_Texture: {fileID: 0}
+    - _SpecularCube:
+        m_Texture: {fileID: 8900000, guid: 7b56808b593c76a41aa7491c7d8f5002, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -84,48 +80,29 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AddPrecomputedVelocity: 0
-    - _AlphaClip: 0
-    - _AlphaToMask: 0
-    - _Blend: 0
-    - _BlendModePreserveSpecular: 1
-    - _BumpScale: 1
-    - _ClearCoatMask: 0
-    - _ClearCoatSmoothness: 0
-    - _Cull: 2
-    - _Cutoff: 1
-    - _DetailAlbedoMapScale: 1
-    - _DetailNormalMapScale: 1
-    - _DstBlend: 0
-    - _DstBlendAlpha: 0
-    - _EnvironmentReflections: 1
-    - _GlossMapScale: 1
-    - _Glossiness: 0.894
-    - _GlossyReflections: 1
-    - _Metallic: 0
-    - _Mode: 0
-    - _OcclusionStrength: 1
-    - _Parallax: 0.02
+    - _QueueControl: 0
     - _QueueOffset: 0
-    - _ReceiveShadows: 1
-    - _Smoothness: 0.2
-    - _SmoothnessTextureChannel: 0
-    - _SpecularHighlights: 1
-    - _SrcBlend: 1
-    - _SrcBlendAlpha: 1
-    - _Surface: 0
-    - _UVSec: 0
-    - _WorkflowMode: 1
-    - _XRMotionVectorsPass: 1
-    - _ZWrite: 1
+    - _brightShift: 1
+    - _irisShadowAmt: 0
+    - _irisSize: 2.68
+    - _limbus: 0.4
+    - _parallax: 0.05
+    - _pupilSize: 0.334
+    - _reflectTerm: 0.025
+    - _scleraShadowAmt: 0
+    - _scleraSize: 0.968
+    - _smoothness: 0.75
+    - _specsize: 0.845
     m_Colors:
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _illumColor: {r: 0, g: 0, b: 0, a: 0}
+    - _irisColor: {r: 0, g: 1, b: 0.94449854, a: 1}
+    - _limbalColor: {r: 0, g: 0, b: 0, a: 0}
+    - _scleraColor: {r: 1, g: 1, b: 1, a: 1}
+    - _subDermColor: {r: 1, g: 0.1862069, b: 0, a: 0.3137255}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &5731440742299492049
+--- !u!114 &5866629828125512386
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
