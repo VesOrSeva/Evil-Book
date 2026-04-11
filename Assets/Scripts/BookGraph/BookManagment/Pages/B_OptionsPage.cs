@@ -25,7 +25,10 @@ namespace BookGraph.Runtime
             optionPageParent.SetActive(true);
             foreach (var button in spawnedButtons) button.GetComponent<Button>().interactable = false;
             var usedButton = spawnedButtons[buttonIndex].GetComponent<Button>();
-            usedButton.interactable = true;
+
+            ColorBlock colors = usedButton.colors;
+            colors.disabledColor = new Color(0.6f, 0f, 0f);
+            usedButton.colors = colors;
         }
 
         public override void WriteThePage(RuntimeNode node)

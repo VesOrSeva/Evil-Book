@@ -568,13 +568,15 @@ public class Book : MonoBehaviour
                     PagesRendering.Instance.ClearAll();
                     UpdateRenderedPages();
 
-                    RightNext.transform.SetParent(BookPanel.transform);
+                    RightNext.transform.SetParent(BookPanel.transform); // I need to set it the same position as Right for it on z <--
                     Right.transform.SetParent(BookPanel.transform);
 
                     Left.gameObject.SetActive(false);
                     Right.gameObject.SetActive(false);
                     pageDragging = false;
                     currentCoroutine = null;
+
+                    SetLocalZ(RightNext.transform, Right.transform.localPosition.z);
                 }
                 ));
         }
@@ -586,13 +588,15 @@ public class Book : MonoBehaviour
                     PagesRendering.Instance.ClearAll();
                     UpdateRenderedPages();
 
-                    LeftNext.transform.SetParent(BookPanel.transform);
+                    LeftNext.transform.SetParent(BookPanel.transform); // I need to set it the same position as Left for it on z <--
                     Left.transform.SetParent(BookPanel.transform);
 
                     Left.gameObject.SetActive(false);
                     Right.gameObject.SetActive(false);
                     pageDragging = false;
                     currentCoroutine = null;
+
+                    SetLocalZ(LeftNext.transform, Left.transform.localPosition.z);
                 }
                 ));
         }

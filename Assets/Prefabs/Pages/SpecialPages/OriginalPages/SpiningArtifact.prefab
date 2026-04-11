@@ -148,6 +148,7 @@ MonoBehaviour:
   specialPageParent: {fileID: 0}
   onPagePrefab: {fileID: 0}
   hasOnPageContent: 0
+  hasInPageContent: 0
 --- !u!1 &863778025618830352
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,7 +214,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: eb5fe346b82de724ab5617beb925feaa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 41c1e222a50c2e0408fd6b92c4e70800, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
