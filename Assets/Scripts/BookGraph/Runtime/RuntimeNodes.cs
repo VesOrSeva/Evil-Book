@@ -84,6 +84,7 @@ namespace BookGraph.Runtime
     [Serializable]
     public class RuntimeConditionNode : RuntimeNode
     {
+        public int Type;
         public int TargetPage;
         public string NextNodeId;
     }

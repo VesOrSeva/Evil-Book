@@ -326,7 +326,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CirclePage
   volume: {fileID: 3433725879318297013}
   duration: 4
-  decayMultiplier: 5
+  decayMultiplier: 6
 --- !u!1 &3594370158643038867
 GameObject:
   m_ObjectHideFlags: 0

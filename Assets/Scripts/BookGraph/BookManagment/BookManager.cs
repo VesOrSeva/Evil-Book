@@ -168,8 +168,9 @@ namespace BookGraph.Runtime
         private void HandleConditionNode(RuntimeConditionNode node)
         {
             if (string.IsNullOrEmpty(node.NextNodeId)) EndDialogue();
+            bool oneTime = node.Type == 0;
 
-            var condition = new PageCondition(GetPageNumber(node.TargetPage), node.NextNodeId);
+            var condition = new PageCondition(GetPageNumber(node.TargetPage), node.NextNodeId, oneTime);
             book.AddCondition(condition);
         }
 

@@ -138,6 +138,12 @@ namespace BookGraph.Editor
     [Serializable]
     public class PageCondition : Node
     {
+        public enum conditionType
+        {
+            OneTime = 0,
+            Constant = 1
+        }
+
         protected override void OnDefinePorts(IPortDefinitionContext context)
         {
             context.AddInputPort("In").WithConnectorUI(PortConnectorUI.Arrowhead).Build();
@@ -146,6 +152,7 @@ namespace BookGraph.Editor
 
         protected override void OnDefineOptions(IOptionDefinitionContext context)
         {
+            context.AddOption<conditionType>("Type").Build();
             context.AddOption<int>("Target Page").Delayed();
         }
     }
