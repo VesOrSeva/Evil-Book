@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1297738045683427706}
   - component: {fileID: 576643495872922403}
   m_Layer: 6
-  m_Name: AutopsyPage
+  m_Name: EyeSpread2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 3175849977472431718}
   - component: {fileID: 3237478872878869874}
   m_Layer: 6
-  m_Name: Report
+  m_Name: EyeSpread2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -195,7 +195,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4b38e57e2dd3fda4db7e0418d350593d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1f19c88f02227b643bab94673ad0d41d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

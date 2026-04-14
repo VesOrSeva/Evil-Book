@@ -2341,7 +2341,7 @@ MonoBehaviour:
     - rid: 8910043418339312059
       type: {class: 'Constant`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: {fileID: 355600863897402107, guid: b2221fe7e94134648a0b73644bcf8dad, type: 3}
+        m_Value: {fileID: 355600863897402107, guid: 9395dab1149cd704e844aff4de9b389d, type: 3}
     - rid: 8910043418339312060
       type: {class: SpecialPage, ns: BookGraph.Editor, asm: Assembly-CSharp-Editor}
       data: 
@@ -2403,7 +2403,7 @@ MonoBehaviour:
     - rid: 8910043418339312068
       type: {class: 'Constant`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: {fileID: 355600863897402107, guid: b2221fe7e94134648a0b73644bcf8dad, type: 3}
+        m_Value: {fileID: 355600863897402107, guid: e7c63989453c4c94696d7e4dc327730e, type: 3}
     - rid: 8910043418339312069
       type: {class: SpecialPage, ns: BookGraph.Editor, asm: Assembly-CSharp-Editor}
       data: 
@@ -2543,7 +2543,7 @@ MonoBehaviour:
     - rid: 8910043418339312106
       type: {class: 'Constant`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: {fileID: 355600863897402107, guid: b2221fe7e94134648a0b73644bcf8dad, type: 3}
+        m_Value: {fileID: 355600863897402107, guid: e7c63989453c4c94696d7e4dc327730e, type: 3}
     - rid: 8910043418339312107
       type: {class: SpecialPage, ns: BookGraph.Editor, asm: Assembly-CSharp-Editor}
       data: 
@@ -2565,7 +2565,7 @@ MonoBehaviour:
     - rid: 8910043418339312110
       type: {class: 'Constant`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: {fileID: 355600863897402107, guid: b2221fe7e94134648a0b73644bcf8dad, type: 3}
+        m_Value: {fileID: 355600863897402107, guid: 9395dab1149cd704e844aff4de9b389d, type: 3}
     - rid: 8910043418339312111
       type: {class: SpecialPage, ns: BookGraph.Editor, asm: Assembly-CSharp-Editor}
       data: 
@@ -2799,7 +2799,7 @@ MonoBehaviour:
     - rid: 8910043418339312143
       type: {class: 'Constant`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: {fileID: 355600863897402107, guid: b2221fe7e94134648a0b73644bcf8dad, type: 3}
+        m_Value: {fileID: 355600863897402107, guid: 9395dab1149cd704e844aff4de9b389d, type: 3}
     - rid: 8910043418339312144
       type: {class: SpecialPage, ns: BookGraph.Editor, asm: Assembly-CSharp-Editor}
       data: 
@@ -2846,7 +2846,7 @@ MonoBehaviour:
     - rid: 8910043418339312152
       type: {class: 'Constant`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: {fileID: 355600863897402107, guid: b2221fe7e94134648a0b73644bcf8dad, type: 3}
+        m_Value: {fileID: 355600863897402107, guid: e7c63989453c4c94696d7e4dc327730e, type: 3}
     - rid: 8910043418339312153
       type: {class: SpecialPage, ns: BookGraph.Editor, asm: Assembly-CSharp-Editor}
       data: 
