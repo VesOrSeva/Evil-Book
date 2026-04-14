@@ -345,7 +345,7 @@ MonoBehaviour:
           m_EnumType:
             m_Identification: BookGraph.Runtime.PageEffect, Assembly-CSharp, Version=0.0.0.0,
               Culture=neutral, PublicKeyToken=null
-          m_Value: 0
+          m_Value: 1
         m_EnumType:
           m_Identification: BookGraph.Runtime.PageEffect, Assembly-CSharp, Version=0.0.0.0,
             Culture=neutral, PublicKeyToken=null
@@ -356,8 +356,14 @@ MonoBehaviour:
     - rid: 148572961683013784
       type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: Page1 and teeeeeexxxxxxxxxtttttttttttttt veeeeeeeeeeeeeeeeeeeerrrrrrrrrrrrrrrrrrrrrrrrrrrrrrryyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
-          loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooonnnnnnnnnnggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
+        m_Value: "I thought it wise to start a new journal while I document my research.
+          Whoever finds this  in the future I hope my work aids you to any degree,
+          for I now know what it is like to be at the mercy of the unknown.\\n\\n 
+          My initial work was centred around biological enhancement. A somewhat gray
+          area within the Veils teachings. I chose to balance on a thin line where
+          the practicing of the Old Gods almost dared to blur into the now.\\n\\n
+          Their \u201Cenhancements\u201D were heretical, undignified mutilations
+          of the human body;"
     - rid: 148572961683013785
       type: {class: DefaultPage, ns: BookGraph.Editor, asm: Assembly-CSharp-Editor}
       data: 
@@ -494,7 +500,7 @@ MonoBehaviour:
           m_EnumType:
             m_Identification: BookGraph.Runtime.PageEffect, Assembly-CSharp, Version=0.0.0.0,
               Culture=neutral, PublicKeyToken=null
-          m_Value: 0
+          m_Value: 1
         m_EnumType:
           m_Identification: BookGraph.Runtime.PageEffect, Assembly-CSharp, Version=0.0.0.0,
             Culture=neutral, PublicKeyToken=null
@@ -505,7 +511,19 @@ MonoBehaviour:
     - rid: 148573004354551896
       type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: Page2
+        m_Value: 'those who worshiped them were far too gone to realise. We are not
+          built upon pagan fantasies. We are different. Which is why I have hope
+          in a time where we are faced with such uncertain tragedy. Our own great
+          Maker stood before all odds, a human man facing so called Gods, yet they
+          were nothing and this will be the same. \n\n   I would be a hypocrite however
+          to not admit to the fear that pulsed through my body when I saw it occur
+          the first time. I was there when the first of the afflicted fell. A man
+          collapsed before the Beacon, the flesh of his arms ripped like a chasm
+          as clusters of hands wriggled out, fingers twitching and pulsing like maggots.
+          He wailed in agony as the hands continued to crawl out from beneath his
+          skin, we could hear the scratching and tearing as each of them surfaced,
+          pushing through their torn opening like a fetus. He was alive by the end,
+          alive through it all.  '
     - rid: 148573004354551897
       type: {class: DefaultPage, ns: BookGraph.Editor, asm: Assembly-CSharp-Editor}
       data: 
