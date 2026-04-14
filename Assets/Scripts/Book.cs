@@ -418,6 +418,7 @@ public class Book : MonoBehaviour
     public void OnMouseDragRightPage()
     {
         if (!IsInteractable || IsAutoFlipping) return;
+        if (GetLeftPageIndex() + 2 > MaxPageIndex) return;
         if (thicknessCoroutine != null) StopCoroutine(thicknessCoroutine);
         DragRightPageToPoint(transformPoint(Input.mousePosition));
         AudioManager.Instance.PlayRandomSound(AudioBundle.Instance.GetFlipingStartClips, 0.7f);
@@ -453,6 +454,7 @@ public class Book : MonoBehaviour
     public void OnMouseDragLeftPage()
     {
         if (!IsInteractable || IsAutoFlipping) return;
+        if (GetLeftPageIndex() - 2 < MinPageIndex) return;
         if (thicknessCoroutine != null) StopCoroutine(thicknessCoroutine);
         DragLeftPageToPoint(transformPoint(Input.mousePosition));
         AudioManager.Instance.PlayRandomSound(AudioBundle.Instance.GetFlipingStartClips, 0.7f);       
@@ -497,12 +499,12 @@ public class Book : MonoBehaviour
         var renderer = PagesRendering.Instance;
 
         int left = GetLeftPageIndex();
-        int right = left + 1;
+        int nextSpread = CheckSkippedPages(left + 2, true);
 
         renderer.SpawnPage(GetPage(left), RenderingPageType.LeftFront, false);
-        renderer.SpawnPage(GetPage(left + 3), RenderingPageType.RightFront, false);
-        renderer.SpawnPage(GetPage(right), RenderingPageType.RightBack, false);
-        renderer.SpawnPage(GetPage(left + 2), RenderingPageType.LeftBack, false);
+        renderer.SpawnPage(GetPage(nextSpread + 1), RenderingPageType.RightFront, false);
+        renderer.SpawnPage(GetPage(left + 1), RenderingPageType.RightBack, false);
+        renderer.SpawnPage(GetPage(nextSpread), RenderingPageType.LeftBack, false);
     }
 
     void PrepareLTRPages()
@@ -512,12 +514,12 @@ public class Book : MonoBehaviour
         var renderer = PagesRendering.Instance;
 
         int left = GetLeftPageIndex();
-        int right = left + 1;
+        int nextSpread = CheckSkippedPages(left - 2, false);
 
         renderer.SpawnPage(GetPage(left), RenderingPageType.LeftBack, false);
-        renderer.SpawnPage(GetPage(left - 2), RenderingPageType.LeftFront, false);
-        renderer.SpawnPage(GetPage(right), RenderingPageType.RightFront, false);
-        renderer.SpawnPage(GetPage(left - 1), RenderingPageType.RightBack, false);
+        renderer.SpawnPage(GetPage(nextSpread), RenderingPageType.LeftFront, false);
+        renderer.SpawnPage(GetPage(left + 1), RenderingPageType.RightFront, false);
+        renderer.SpawnPage(GetPage(nextSpread + 1), RenderingPageType.RightBack, false);
     }
 
     public void TweenForward()
@@ -536,10 +538,11 @@ public class Book : MonoBehaviour
 
     void Flip()
     {
-        if (mode == FlipMode.RightToLeft) currentPage += 2;
-        else  currentPage -= 2;
+        int direction = (mode == FlipMode.RightToLeft) ? 2 : -2;
+        int targetPage = currentPage + direction;
 
-        currentPage = Mathf.Clamp(currentPage, MinPageIndex, MaxPageIndex);
+        targetPage = CheckSkippedPages(targetPage, direction > 0);
+        currentPage = Mathf.Clamp(targetPage, MinPageIndex, MaxPageIndex);
         PagesRendering.Instance.ClearAll();
 
         LeftNext.transform.SetParent(BookPanel.transform, true);
@@ -761,6 +764,20 @@ public class Book : MonoBehaviour
 
     #region Pages Logic
 
+    public List<(int left, int right)> SkippedPages = new();
+
+    private int CheckSkippedPages(int targetPage, bool forward)
+    {
+        foreach (var (left, right) in SkippedPages)
+        {
+            if (targetPage >= left && targetPage <= right)
+            {
+                return forward ? targetPage + 2 : targetPage - 2;
+            }
+        }
+
+        return targetPage;
+    }
     public void InitializePages(GameObject blankPrefab, int pageCount)
     {
         pages.Clear();

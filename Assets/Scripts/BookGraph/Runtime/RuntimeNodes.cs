@@ -99,6 +99,15 @@ namespace BookGraph.Runtime
     }
 
     [Serializable]
+    public class RuntimeSkipPagesNode : RuntimeNode
+    {
+        public int Action;
+        public int TargetLeftPage;
+        public int TargetRightPage;
+        public string NextNodeId;
+    }
+
+    [Serializable]
     public class ChoiceData
     {
         public string ChoiceText;
