@@ -82,6 +82,10 @@ namespace BookGraph.Editor
                     ProcessPageConditionNode(condition, (RuntimeConditionNode)runtimeNode, idMap);
                     break;
 
+                case SkipPages skip:
+                    ProcessSkipPagesNode(skip, (RuntimeSkipPagesNode)runtimeNode, idMap);
+                    break;
+
                 case AudioNode audio:
                     ProcessAudioNode(audio, (RuntimeAudioNode)runtimeNode, idMap);
                     break;
@@ -179,6 +183,16 @@ namespace BookGraph.Editor
             if (nextNodePort != null) runtimeNode.NextNodeId = nodeIDMap[nextNodePort.GetNode()];
         }
 
+        private void ProcessSkipPagesNode(SkipPages node, RuntimeSkipPagesNode runtimeNode, Dictionary<INode, string> nodeIDMap)
+        {
+            runtimeNode.TargetLeftPage = GetOptionValue<int>(node, "Target Left Page");
+            runtimeNode.TargetRightPage = GetOptionValue<int>(node, "Target Right Page");
+            runtimeNode.Action = node.GetNodeOptionByName("Action")?.TryGetValue(out SkipPages.Action act) == true ? (int)act : 0;
+
+            var nextNodePort = node.GetOutputPortByName("Out").firstConnectedPort;
+            if (nextNodePort != null) runtimeNode.NextNodeId = nodeIDMap[nextNodePort.GetNode()];
+        }
+
         private void ProcessAudioNode(AudioNode node, RuntimeAudioNode runtimeNode, Dictionary<INode, string> nodeIDMap)
         {
             runtimeNode.Clip = GetPortValue<AudioClip>(node.GetInputPortByName("Audio Clip"));
@@ -208,6 +222,7 @@ namespace BookGraph.Editor
                 FlipToPages => new RuntimeFlipPagesNode(),
                 ChoicePage => new RuntimeChoicePageNode(),
                 PageCondition => new RuntimeConditionNode(),
+                SkipPages => new RuntimeSkipPagesNode(),
                 AudioNode => new RuntimeAudioNode(),
                 EndNode => new RuntimeEndNode(),
                 _ => throw new NotImplementedException($"Unsupported node type: {node.GetType()}")
@@ -223,6 +238,7 @@ namespace BookGraph.Editor
             || node is FlipToPages 
             || node is ChoicePage 
             || node is PageCondition
+            || node is SkipPages
             || node is AudioNode
             || node is EndNode;
 

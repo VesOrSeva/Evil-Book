@@ -89,6 +89,15 @@ namespace BookGraph.Runtime
         public string NextNodeId;
     }
 
+    [Serializable]
+    public class RuntimeSkipPagesNode : RuntimeNode
+    {
+        public int Action;
+        public int TargetLeftPage;
+        public int TargetRightPage;
+        public string NextNodeId;
+    }
+
 
     [Serializable]
     public class RuntimeAudioNode : RuntimeNode

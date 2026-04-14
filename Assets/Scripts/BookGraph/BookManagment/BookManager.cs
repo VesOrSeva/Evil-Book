@@ -93,6 +93,10 @@ namespace BookGraph.Runtime
                     HandleConditionNode(condition);
                     break;
 
+                case RuntimeSkipPagesNode skip:
+                    HandleSkipPagesNode(skip);
+                    break;
+
                 case RuntimeAudioNode audio:
                     HandleAudioNode(audio);
                     break;
@@ -172,6 +176,24 @@ namespace BookGraph.Runtime
 
             var condition = new PageCondition(GetPageNumber(node.TargetPage), node.NextNodeId, oneTime);
             book.AddCondition(condition);
+        }
+
+        private void HandleSkipPagesNode(RuntimeSkipPagesNode node)
+        {
+            int left = GetPageNumber(node.TargetLeftPage);
+            int right = GetPageNumber(node.TargetRightPage);
+
+            if (node.Action == 0)
+            {
+                book.SkippedPages.Add((left, right));
+            }
+            else
+            {
+                book.SkippedPages.RemoveAll(r => r.left == left && r.right == right);
+            }
+
+            if (!string.IsNullOrEmpty(node.NextNodeId)) GoToNode(node.NextNodeId);
+            else EndDialogue();
         }
 
         private void HandleAudioNode(RuntimeAudioNode node)
