@@ -158,29 +158,6 @@ namespace BookGraph.Editor
     }
 
     [Serializable]
-    public class SkipPages : Node
-    {
-        public enum Action
-        {
-            Add = 0,
-            Remove = 1
-        }
-
-        protected override void OnDefinePorts(IPortDefinitionContext context)
-        {
-            context.AddInputPort("In").WithConnectorUI(PortConnectorUI.Arrowhead).Build();
-            context.AddOutputPort("Out").WithConnectorUI(PortConnectorUI.Arrowhead).Build();
-        }
-
-        protected override void OnDefineOptions(IOptionDefinitionContext context)
-        {
-            context.AddOption<Action>("Action").Build();
-            context.AddOption<int>("Target Left Page").Delayed();
-            context.AddOption<int>("Target Right Page").Delayed();
-        }
-    }
-
-    [Serializable]
     public class AudioNode : Node
     {
         protected override void OnDefinePorts(IPortDefinitionContext context)
