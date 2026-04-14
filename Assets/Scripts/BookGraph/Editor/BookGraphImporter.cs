@@ -173,7 +173,7 @@ namespace BookGraph.Editor
         private void ProcessPageConditionNode(PageCondition node, RuntimeConditionNode runtimeNode, Dictionary<INode, string> nodeIDMap)
         {
             runtimeNode.TargetPage = GetOptionValue<int>(node, "Target Page");
-            runtimeNode.Type = node.GetNodeOptionByName("Typr")?.TryGetValue(out PageCondition.conditionType type) == true ? (int)type : 0;
+            runtimeNode.Type = node.GetNodeOptionByName("Type")?.TryGetValue(out PageCondition.conditionType type) == true ? (int)type : 0;
 
             var nextNodePort = node.GetOutputPortByName("Out").firstConnectedPort;
             if (nextNodePort != null) runtimeNode.NextNodeId = nodeIDMap[nextNodePort.GetNode()];

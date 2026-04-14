@@ -31,6 +31,9 @@ namespace BookGraph.Runtime
         {
             textObject.SetText("");
 
+            // Convert "\n" into actual newlines first
+            text = text.Replace("\\n", "\n");
+
             StringBuilder builder = new();
             bool insideTag = false;
 

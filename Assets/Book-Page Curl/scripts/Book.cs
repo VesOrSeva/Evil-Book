@@ -820,7 +820,7 @@ public class Book : MonoBehaviour
     public PageCondition GetConditionForPage(int pageIndex)
     {
         var condition = conditions.Find(c => c.TargetPage == pageIndex);
-        if (condition != null && !condition.oneTime) conditions.Remove(condition);
+        if (condition != null && condition.oneTime) conditions.Remove(condition);
 
         return condition;
     }
