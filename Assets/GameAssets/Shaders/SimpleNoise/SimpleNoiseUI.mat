@@ -43,7 +43,7 @@ Material:
     m_Floats:
     - _ColorMask: 15
     - _Intensity: 0.2
-    - _Opacity: 0.01
+    - _Opacity: 0.02
     - _Scale: 5
     - _Stencil: 0
     - _StencilComp: 8

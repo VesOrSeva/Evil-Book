@@ -1,15 +1,31 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FinalSequence : Singleton<FinalSequence>
 {
     [SerializeField] Book book;
     [SerializeField] GameObject sequence;
+    [SerializeField] Button Ves;
+    [SerializeField] Button AA;
 
+    private void Start()
+    {
+        Ves.onClick.AddListener(VesProtfolio);
+        AA.onClick.AddListener(AAProtfolio);
+    }
     public void StartTheFinally()
     {
         book.ForceLock();
         sequence.SetActive(true);
         MusicManager.Instance.SetVolume(SourceType.Main, 0f, 3f);
         MusicManager.Instance.SetVolume(SourceType.Finally, 0.8f, 15f);
+    }
+    private void VesProtfolio()
+    {
+        Application.OpenURL("https://vesorseva.github.io/Portfolio/");
+    }
+    private void AAProtfolio()
+    {
+        Application.OpenURL("https://aishagamedesignportfolio.com/");
     }
 }
