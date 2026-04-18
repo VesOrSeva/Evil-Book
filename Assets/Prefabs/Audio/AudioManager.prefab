@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6543675750932526131}
   - component: {fileID: 1541518973054544057}
   - component: {fileID: 8996051455639586594}
+  - component: {fileID: 6494760965269347812}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -65,3 +66,16 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8b28fc26e0cdb6640996f57452d8ed66, type: 3}
   pageFlipingEnd:
   - {fileID: 8300000, guid: 23e52a8ebbfc4d0439148e82b49ecaea, type: 3}
+--- !u!114 &6494760965269347812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 733401195689450264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a66fdb6362189b4ba4db9b4b141788e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MixerManager
+  mixer: {fileID: 24100000, guid: bf5b9c22a8ea29240aacacfc0ce7c099, type: 2}

@@ -1000,7 +1000,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 81c9953debddfae3f689db7fa4eb6793
         m_Version: 2
-        m_Position: {x: -950.2383, y: 112.20451}
+        m_Position: {x: -950.90497, y: 112.20451}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -1110,7 +1110,7 @@ MonoBehaviour:
     - rid: 7071540099785687050
       type: {class: 'Constant`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: {fileID: 355600863897402107, guid: 2064a314a62c9434991e1039c9df5841, type: 3}
+        m_Value: {fileID: 355600863897402107, guid: 3248e274b400af84ebfe0b42c9c1c1f9, type: 3}
     - rid: 7071540099785687051
       type: {class: SpecialPage, ns: BookGraph.Editor, asm: Assembly-CSharp-Editor}
       data: 

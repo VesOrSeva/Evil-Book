@@ -17,13 +17,13 @@ namespace BookGraph.Runtime
         {
             if (!hasOnPageContent) return;
             used = true;
-            specialPageParent.SetActive(false);
+            if (specialPageParent) specialPageParent.SetActive(false);
         }
 
         public override void OnPageVisible(RuntimeNode node)
         {
             if (!hasOnPageContent) return;
-            specialPageParent.SetActive(true);
+            if (specialPageParent) specialPageParent.SetActive(true);
         }
 
         public override void OnPageOpened(RuntimeNode node, RenderingPageType type)
@@ -42,7 +42,7 @@ namespace BookGraph.Runtime
 
             B_OnPageContentManager.Instance.ClearPages();
             B_OnPageContentManager.Instance.SpawnPage(onPagePrefab, node, type, gameObject);
-            specialPageParent.SetActive(false);
+            if (specialPageParent) specialPageParent.SetActive(false);
         }
 
         public override void WriteThePage(RuntimeNode node)
