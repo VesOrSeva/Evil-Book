@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class MainMenuPage : OnPageContent
 {
     [SerializeField] Button exitButton;
+    [SerializeField] Button fontButton;
     [SerializeField] Slider masterSlider;
     [SerializeField] Slider soundSlider;
     [SerializeField] Slider musicSlider;
@@ -14,6 +15,7 @@ public class MainMenuPage : OnPageContent
         this.originalPage = originalPage.GetComponent<B_SpecialPage>();
 
         exitButton.onClick.AddListener(ExitGame);
+        fontButton.onClick.AddListener(ChangeFont);
         masterSlider.SetValueWithoutNotify(MixerManager.Instance.GetMasterVolume);
         soundSlider.SetValueWithoutNotify(MixerManager.Instance.GetSoundVolume);
         musicSlider.SetValueWithoutNotify(MixerManager.Instance.GetMusicVolume);
@@ -30,6 +32,11 @@ public class MainMenuPage : OnPageContent
     public void SetMusicVolume(float volume)
     {
         MixerManager.Instance.SetMusicVolume(volume);
+    }
+
+    public void ChangeFont()
+    {
+        FontManager.Instance.ChangeFont();
     }
 
     public void ExitGame()

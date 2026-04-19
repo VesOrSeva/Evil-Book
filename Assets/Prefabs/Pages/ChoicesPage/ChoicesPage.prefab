@@ -447,6 +447,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6501838292517282414}
+  - component: {fileID: 193787590472910905}
   - component: {fileID: 1353451260379942123}
   - component: {fileID: 1739467055927738474}
   m_Layer: 6
@@ -475,6 +476,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 500, y: 380}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &193787590472910905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8858445136181046097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3575d0b5b8da3fa43b6d1255f33165aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FontObject
 --- !u!222 &1353451260379942123
 CanvasRenderer:
   m_ObjectHideFlags: 0
