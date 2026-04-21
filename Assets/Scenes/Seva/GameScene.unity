@@ -2497,6 +2497,10 @@ PrefabInstance:
       propertyPath: flipDuration
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
+      propertyPath: uiLiftPerPage
+      value: 0.0015
+      objectReference: {fileID: 0}
     - target: {fileID: 22443772, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -36003,7 +36007,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42147b839f764a547ae164f2f356a606, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookGraph.Runtime.BookManager
-  currentGraph: {fileID: 3965311268370046156, guid: b805066cbe7eebd43a502aa46c7f58dc, type: 3}
+  currentGraph: {fileID: 3965311268370046156, guid: 93658176b72415b4aa7b4b655c9b07c2, type: 3}
   book: {fileID: 1370200378}
   autoFlip: {fileID: 1370200379}
   blankPagePrefab: {fileID: 355600863897402107, guid: 7b0debc5da8f7ee4597f55f9b661835a, type: 3}

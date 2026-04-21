@@ -51,7 +51,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf023772ad2315e4f8f6d16a7389b805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookGraph.Runtime.B_SpecialPage
-  texts: []
+  texts:
+  - textField: {fileID: 4387081511191201432}
+    textToType: My name is Percy Lamb. My name is Percy Lamb. My name is Percy Lamb.
+      My name is Percy Lamb. My name is Percy Lamb. My name is Percy Lamb. My name
+      is Percy Lamb. My name is Percy Lamb. My name is Percy Lamb. My name is Percy
+      Lamb. My name is Percy Lamb. My name is Percy Lamb. My name is Percy Lamb.
+      My name is Percy Lamb. My name is Percy Lamb. My name is Percy Lamb. My name
+      is Percy Lamb. My name is Percy Lamb. My name is Percy Lamb. My name is Percy
+      Lamb. My name is Percy Lamb. My name is Percy Lamb. My name is Percy Lamb.
+      My name is Percy Lamb. My name is Percy Lamb. My name is Percy Lamb.
   pageNumber: {fileID: 8205029178455810947}
   specialPageParent: {fileID: 0}
   onPagePrefab: {fileID: 0}
@@ -156,6 +165,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4808772042121802699}
+  - component: {fileID: 158696782129990143}
   - component: {fileID: 7279582869875886482}
   - component: {fileID: 4387081511191201432}
   m_Layer: 6
@@ -184,6 +194,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -80, y: -80}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &158696782129990143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2905298640723478392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3575d0b5b8da3fa43b6d1255f33165aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FontObject
 --- !u!222 &7279582869875886482
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -212,14 +234,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: My name is Percy Lamb. My name is Percy Lamb. My name is Percy Lamb. My
-    name is Percy Lamb. My name is Percy Lamb. My name is Percy Lamb. My name is
-    Percy Lamb. My name is Percy Lamb. My name is Percy Lamb. My name is Percy Lamb.
-    My name is Percy Lamb. My name is Percy Lamb. My name is Percy Lamb. My name
-    is Percy Lamb. My name is Percy Lamb. My name is Percy Lamb. My name is Percy
-    Lamb. My name is Percy Lamb. My name is Percy Lamb. My name is Percy Lamb. My
-    name is Percy Lamb. My name is Percy Lamb. My name is Percy Lamb. My name is
-    Percy Lamb. My name is Percy Lamb. My name is Percy Lamb.
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b1857a52612a1ac49b015a1e542f12d0, type: 2}
   m_sharedMaterial: {fileID: -201468256180794606, guid: b1857a52612a1ac49b015a1e542f12d0, type: 2}

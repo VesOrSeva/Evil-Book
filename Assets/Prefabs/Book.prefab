@@ -786,7 +786,7 @@ MonoBehaviour:
   - prefab: {fileID: 8860685108981245231, guid: 9c54560293f14a14891c3e19fe208d4b, type: 3}
   - prefab: {fileID: 8860685108981245231, guid: abe0282e6bb98f041badfdd6a6093baa, type: 3}
   backPages:
-  - prefab: {fileID: 8860685108981245231, guid: 9c54560293f14a14891c3e19fe208d4b, type: 3}
+  - prefab: {fileID: 355600863897402107, guid: 82a42f167c678da4582d5d57e3156a00, type: 3}
   - prefab: {fileID: 8860685108981245231, guid: 9c54560293f14a14891c3e19fe208d4b, type: 3}
   conditions: []
   flipDuration: 0.2

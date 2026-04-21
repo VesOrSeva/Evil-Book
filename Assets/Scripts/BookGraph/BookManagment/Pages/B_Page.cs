@@ -17,7 +17,7 @@ namespace BookGraph.Runtime
 
         private readonly Dictionary<TextMeshProUGUI, Coroutine> typingCoroutines = new();
 
-        public void TypeText(TextMeshProUGUI textObject, string textToType, float charDelay = 0.03f)
+        public void TypeText(TextMeshProUGUI textObject, string textToType, float charDelay = 0.02f)
         {
             if (typingCoroutines.TryGetValue(textObject, out var existingCoroutine))
                 StopCoroutine(existingCoroutine);
@@ -30,26 +30,34 @@ namespace BookGraph.Runtime
         private IEnumerator TypeTextCoroutine(TextMeshProUGUI textObject, string text, float characterDelay)
         {
             textObject.SetText("");
-
-            // Convert "\n" into actual newlines first
             text = text.Replace("\\n", "\n");
 
             StringBuilder builder = new();
             bool insideTag = false;
 
-            foreach (char c in text)
+            float timer = 0f;
+            int index = 0;
+
+            while (index < text.Length)
             {
-                // Handle rich text tags (e.g., <b>, </i>)
-                if (c == '<') insideTag = true;
+                timer += Time.deltaTime;
 
-                builder.Append(c);
+                while (timer >= characterDelay && index < text.Length)
+                {
+                    char c = text[index++];
 
-                if (c == '>') insideTag = false;
+                    if (c == '<') insideTag = true;
+
+                    builder.Append(c);
+
+                    if (c == '>') insideTag = false;
+
+                    if (!insideTag && !char.IsWhiteSpace(c))
+                        timer -= characterDelay;
+                }
 
                 textObject.SetText(builder.ToString());
-
-                if (!insideTag && !char.IsWhiteSpace(c))
-                    yield return new WaitForSeconds(characterDelay);
+                yield return null;
             }
 
             typingCoroutines.Remove(textObject);

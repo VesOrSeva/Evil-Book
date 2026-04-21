@@ -16,8 +16,9 @@ public class FontObject : MonoBehaviour
         FontManager.Instance.UnregisterText(this);
     }
 
-    public void ChangeFont(TMP_FontAsset font)
+    public void ChangeFont(TMP_FontAsset font, float fontScaleDiffrence)
     {
         text.font = font;
+        text.fontSize += fontScaleDiffrence;
     }
 }
