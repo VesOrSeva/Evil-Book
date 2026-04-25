@@ -22,10 +22,10 @@ public class FinalSequence : Singleton<FinalSequence>
     }
     private void VesProtfolio()
     {
-        Application.OpenURL("https://vesorseva.github.io/Portfolio/");
+        Application.OpenURL("https://famona.itch.io/");
     }
     private void AAProtfolio()
     {
-        Application.OpenURL("https://aishagamedesignportfolio.com/");
+        Application.OpenURL("https://3threeteacups.itch.io/");
     }
 }
