@@ -96,7 +96,7 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _illumColor: {r: 0, g: 0, b: 0, a: 0}
-    - _irisColor: {r: 0, g: 1, b: 0.94449854, a: 1}
+    - _irisColor: {r: 0.27672952, g: 0.27672952, b: 0.27672952, a: 1}
     - _limbalColor: {r: 0, g: 0, b: 0, a: 0}
     - _scleraColor: {r: 1, g: 1, b: 1, a: 1}
     - _subDermColor: {r: 1, g: 0.1862069, b: 0, a: 0.3137255}

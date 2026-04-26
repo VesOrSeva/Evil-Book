@@ -108,8 +108,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PulsePage
   volume: {fileID: 1100392695412091760}
-  minWeight: 0.5
-  speed: 3
+  minWeight: 0.7
+  speed: 1
 --- !u!1 &863778025618830352
 GameObject:
   m_ObjectHideFlags: 0
