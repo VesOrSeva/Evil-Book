@@ -35921,7 +35921,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42147b839f764a547ae164f2f356a606, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookGraph.Runtime.BookManager
-  currentGraph: {fileID: 3965311268370046156, guid: 93658176b72415b4aa7b4b655c9b07c2, type: 3}
+  currentGraph: {fileID: 3965311268370046156, guid: 3c04d0fa445348e448d18f97537cac86, type: 3}
   book: {fileID: 1370200378}
   autoFlip: {fileID: 1370200379}
   blankPagePrefab: {fileID: 355600863897402107, guid: 7b0debc5da8f7ee4597f55f9b661835a, type: 3}
