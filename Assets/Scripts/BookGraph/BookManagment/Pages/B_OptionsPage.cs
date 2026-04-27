@@ -16,6 +16,8 @@ namespace BookGraph.Runtime
         [SerializeField] Image background;
 
         private bool used = false;
+        private bool wasWritten = false;
+        public bool WasWritten => wasWritten;
 
         private readonly List<GameObject> spawnedButtons = new();
 
@@ -57,15 +59,15 @@ namespace BookGraph.Runtime
             if (node is not RuntimeChoicePageNode choicePage) return;
             ClearOptions();
 
-            pageText.GetComponent<TextMeshProUGUI>().text = choicePage.PageText;
+            TypeText(pageText.GetComponent<TextMeshProUGUI>(), choicePage.PageText, 0.03f);
             pageNumber.text = choicePage.TargetPage.ToString();
 
             foreach (var choice in choicePage.Choices)
             {
                 var buttonGO = Instantiate(optionButtonPrefab, optionsContainer.transform);
                 spawnedButtons.Add(buttonGO);
-                var text = buttonGO.GetComponentInChildren<TMP_Text>();
-                if (text != null) text.text = choice.ChoiceText;
+                var text = buttonGO.GetComponentInChildren<TextMeshProUGUI>();
+                if (text != null) TypeText(text, choice.ChoiceText, 0.05f);
             }
 
             if (choicePage.PageLayout == 0)
@@ -82,6 +84,11 @@ namespace BookGraph.Runtime
             }
 
             spawnedButtons.Clear();
+        }
+
+        public void Written()
+        {
+            wasWritten = true;
         }
     }
 }

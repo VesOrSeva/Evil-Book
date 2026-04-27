@@ -5,6 +5,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace BookGraph.Runtime
 {
@@ -32,7 +33,8 @@ namespace BookGraph.Runtime
                 return;
             }
 
-            pageText.GetComponent<TextMeshProUGUI>().text = choicePage.PageText;
+            if (optionsPage.WasWritten) pageText.GetComponent<TextMeshProUGUI>().text = choicePage.PageText;
+            else TypeText(pageText.GetComponent<TextMeshProUGUI>(), choicePage.PageText);
             pageNumber.text = choicePage.TargetPage.ToString();
 
             for (int i = 0; i < choicePage.Choices.Count; i++)
@@ -43,9 +45,12 @@ namespace BookGraph.Runtime
                 spawnedButtons.Add(buttonGO);
 
                 var button = buttonGO.GetComponent<Button>();
-                var text = buttonGO.GetComponentInChildren<TMP_Text>();
-
-                if (text != null) text.text = choice.ChoiceText;
+                var text = buttonGO.GetComponentInChildren<TextMeshProUGUI>();
+                if (text != null)
+                {
+                    if (optionsPage.WasWritten) text.text = choice.ChoiceText;
+                    else TypeText(text, choice.ChoiceText, 0.05f);
+                }
 
                 string nextNodeId = choice.NextNodeId;
                 int index = i;
@@ -61,6 +66,8 @@ namespace BookGraph.Runtime
             {
                 optionsContainer.transform.SetAsFirstSibling();
             }
+
+            optionsPage.Written();
         }
 
         private void OnChoiceSelected(string nodeId, int buttonIndex)
@@ -92,23 +99,34 @@ namespace BookGraph.Runtime
         private IEnumerator TypeTextCoroutine(TextMeshProUGUI textObject, string text, float characterDelay)
         {
             textObject.SetText("");
+            text = text.Replace("\\n", "\n");
 
             StringBuilder builder = new();
             bool insideTag = false;
 
-            foreach (char c in text)
+            float timer = 0f;
+            int index = 0;
+
+            while (index < text.Length)
             {
-                // Handle rich text tags (e.g., <b>, </i>)
-                if (c == '<') insideTag = true;
+                timer += Time.deltaTime;
 
-                builder.Append(c);
+                while (timer >= characterDelay && index < text.Length)
+                {
+                    char c = text[index++];
 
-                if (c == '>') insideTag = false;
+                    if (c == '<') insideTag = true;
+
+                    builder.Append(c);
+
+                    if (c == '>') insideTag = false;
+
+                    if (!insideTag && !char.IsWhiteSpace(c))
+                        timer -= characterDelay;
+                }
 
                 textObject.SetText(builder.ToString());
-
-                if (!insideTag && !char.IsWhiteSpace(c))
-                    yield return new WaitForSeconds(characterDelay);
+                yield return null;
             }
 
             typingCoroutines.Remove(textObject);
