@@ -4236,6 +4236,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 360369060}
   m_Mesh: {fileID: 4300000, guid: 60694673404b80d45920d4cb862f845a, type: 3}
+--- !u!114 &362864200 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5233713210056453856, guid: 45fb05da2ec8a8f4b843324872a9babc, type: 3}
+  m_PrefabInstance: {fileID: 1249035283}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!1 &365767466
 GameObject:
   m_ObjectHideFlags: 0
@@ -14827,6 +14838,7 @@ MonoBehaviour:
   sequence: {fileID: 1715049431}
   Ves: {fileID: 59987003}
   AA: {fileID: 1744808836}
+  closeButton: {fileID: 362864200}
 --- !u!4 &808111289
 Transform:
   m_ObjectHideFlags: 0

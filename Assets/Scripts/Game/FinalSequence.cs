@@ -7,11 +7,13 @@ public class FinalSequence : Singleton<FinalSequence>
     [SerializeField] GameObject sequence;
     [SerializeField] Button Ves;
     [SerializeField] Button AA;
+    [SerializeField] Button closeButton;
 
     private void Start()
     {
         Ves.onClick.AddListener(VesProtfolio);
         AA.onClick.AddListener(AAProtfolio);
+        closeButton.onClick.AddListener(ExitGame);
     }
     public void StartTheFinally()
     {
@@ -27,5 +29,11 @@ public class FinalSequence : Singleton<FinalSequence>
     private void AAProtfolio()
     {
         Application.OpenURL("https://3threeteacups.itch.io/");
+    }
+
+    public void ExitGame()
+    {
+        Debug.Log("Closing the application");
+        Application.Quit();
     }
 }
